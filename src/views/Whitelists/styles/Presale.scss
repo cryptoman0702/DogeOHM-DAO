@@ -1,0 +1,62 @@
+#presale-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: visible;
+}
+
+.h1 {
+  margin-top: 50px;
+  height: 100px;
+  font-size: xx-large;
+  font-weight: 400;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 20px !important;
+  margin-top: 100px;
+}
+
+@media (max-width:1282px) {
+  #presale-view {
+    display: flex;
+    flex-direction: column;
+  }
+  .container {
+    flex-direction: column !important;
+  }
+}
+
+.dohm-card .card-header {
+  width: 250px !important;
+}
+
+.card-layout {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.view-button {
+  margin-top: 50px !important;
+  align-self: center;
+  width: 100%;
+  min-width: 163px !important;
+  max-width: 542px !important;
+  height: 43px !important;
+  text-decoration: none;
+}
+
+.span-colour {
+  color: lightyellow;
+}
+
+.notice-colour {
+  color: orangered;
+}
+
+

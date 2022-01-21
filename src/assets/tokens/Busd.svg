@@ -1,0 +1,10 @@
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+	<title>Method Draw Image</title>
+	<defs>
+		<image  width="32" height="32" id="img_busd" href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAMAAADVRocKAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAmVBMVEUAAADvrxDvtwjxugnvuAvwuQrwuQvwuQrwugvwugvvtwvxuAvxugvyuQvvtwjvtgrwuQvwugrxuQvxuwvvugvvuAnwuQvvuQvvtwzvuQ3wuAvvvxDvuArwugvvtwryuwrvtgvvuAzvuAvvtg3vtwvvtgvwuQvywSnzxjj99Nz++ev//fr++OvzxTj55KD65KD65KH435EAAAD9nRWlAAAAJnRSTlMAEEBvkK/P3++/YJ+fXyBQ36+PjzBw76BAUL8QsM+gT3CQcFCgkIcFmz4AAAABYktHRACIBR1IAAAACXBIWXMAAAsSAAALEgHS3X78AAAAB3RJTUUH5QsaCBkLwOiHUwAAAyhJREFUaN61mm17mjAUhkHkRayOteqstuvs2lgKrtv//3MLikokyXlygPPRi9yPOS8hOcHzIPNHwTiM4kRIS+JJOA5GPjYSgafTWGgsupvNe6AHE2GxSUeNkZV+svAb/8/HNL6ybMbiBwmGZ0qMwH/PlJh/d8NXducQ7pmDdxiT8O85+MoeoOKbO3pfmQTgpgXLPReFBen+LvjKiEAEXflCLAfmWxUA/+w/OnhpAfDzT0DBEGkgP/d5UQAKK222+hgfUsh0FUfX74kPKTy0+SnMhxRagaYDcOUjCq0w/HDhIwqho4NUflHkpJPWigDloFt+eSAFMpcJMPjqkhEPwBcrH52Akb9HpxDz+H+IXLpE4ZHJJ7P1nEghl08pTOoi5vMpBZ8MMcUnFE5h3nTh2xUmhIcQvl3Bt3oI40sFcz2k9nX0C+IXf82EqRSIBKbA4Ve1thUCUmDxqyCMBKTA5MtiXmp/P+QfigLJvw5QbemNtfzymnxfEL80ZOtYuxDJx4umAsI31MOTro6PjzcG/IP4eoVnzbugfrw9gOBrFTIvMfJvB5B8ncLKs/DVAQBfp+DZ+M0BEF+jQAhg+dOwfE8IqCO684U1yD3wV7Y07YEv0zQSJoU++PKlaVwqeuHLpcK02PXDl4udabnuhy+X67WwWke+fOFsB+VX+5Z4SP6z3FX8HJB/3LZYNl5lV/7xuGwJgkpi8MWc2Pw2WRz+6YCwFIgCh183FKyJeuax+KLuJ2xoBR7/qT6j2Yu5YvL44gU7xh5KJv/aTFhan7uctx35jZ7RFur2uvKb3ZBfA/DVphfdEHTmK+0c6q0gLXfk33btQup5dQY0f3rbFCTj3FSg+e2bBLqteVWg+br+9Q5WAPi7Nt/bopkE8LWtZSAMRwWEb7jKAdr7hxLgC+NFDh1ocQD4qWc0ZMkg7dXzBlWw8iEvsf1TR7rDRaAQCXlRN/xVo6w4uqYNtkO/VEhZk0h+g/jKTW/u/NDt+wTXSWRrJ7yrRPLqjHeRyAL2ZyiP5JtUiI27c5Rwp9ad64b/55sab5EOHk/THr/QWQfv4eb8+U8UvgdrEP4fKWtOQZ/LVDAAAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+	</style>
+	<use id="Background" href="#img_busd" x="0" y="0" />
+</svg>

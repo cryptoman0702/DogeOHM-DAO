@@ -1,0 +1,50 @@
+#og-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: visible;
+}
+
+.t1 {
+  text-align: center;
+  width: 100%;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.arrow {
+  margin-top: 10px;
+  height: 30px;
+  width: 30px;
+}
+
+.og-card {
+  width: auto;
+  padding: 20px 30px 30px 30px;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 1.8rem;
+  background-color: rgba(54, 56, 64, 0.4);
+}
+
+.whitelist-button {
+  display: flex;
+  margin-top: 15px;
+  height: 50px;
+  width: 325px;
+  justify-content: center;
+}
+
+.presale-button {
+  align-self: center;
+  width: 150px;
+}
+
+.token-text {
+  margin-bottom: 20px;
+}
+
+.link {
+  color: royalblue;
+}
