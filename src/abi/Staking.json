@@ -4,12 +4,12 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_DOHM",
+          "name": "_DOGE",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "_sDOHM",
+          "name": "_sDOGE",
           "type": "address"
         },
         {
@@ -71,7 +71,7 @@
     },
     {
       "inputs": [],
-      "name": "DOHM",
+      "name": "DOGE",
       "outputs": [
         {
           "internalType": "address",
@@ -257,7 +257,7 @@
     },
     {
       "inputs": [],
-      "name": "sDOHM",
+      "name": "sDOGE",
       "outputs": [
         {
           "internalType": "address",

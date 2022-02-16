@@ -80,7 +80,7 @@ const renderTooltipItems = (payload, bulletpointColors, itemNames, itemType, isS
 function CustomTooltip({ active, payload, bulletpointColors, itemNames, itemType, isStaked, isPOL }) {
   if (active && payload && payload.length) {
     return (
-      <Paper className={`dohm-card tooltip-container`}>
+      <Paper className={`doge-card tooltip-container`}>
         {renderTooltipItems(payload, bulletpointColors, itemNames, itemType, isStaked, isPOL)}
       </Paper>
     );

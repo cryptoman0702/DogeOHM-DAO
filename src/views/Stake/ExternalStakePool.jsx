@@ -20,7 +20,7 @@ import { Skeleton } from "@material-ui/lab";
 
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import BondLogo from "../../components/BondLogo";
-import { ReactComponent as DohmLusdImg } from "src/assets/tokens/DOHM-LUSD.svg";
+import { ReactComponent as DogeLusdImg } from "src/assets/tokens/DOGE-LUSD.svg";
 import { ReactComponent as ArrowUp } from "../../assets/icons/arrow-up.svg";
 import { getLusdData } from "../../slices/LusdSlice";
 import { useWeb3Context } from "src/hooks/web3Context";
@@ -38,8 +38,8 @@ export default function ExternalStakePool() {
     return state.lusdData;
   });
 
-  const dohmLusdReserveBalance = useSelector(state => {
-    return state.account && state.account.bonds?.dohm_lusd_lp?.balance;
+  const dogeLusdReserveBalance = useSelector(state => {
+    return state.account && state.account.bonds?.doge_lusd_lp?.balance;
   });
 
   const loadLusdData = async () => {
@@ -68,7 +68,7 @@ export default function ExternalStakePool() {
 
   return (
     <Zoom in={true}>
-      <Paper className={`dohm-card secondary ${isSmallScreen && "mobile"}`}>
+      <Paper className={`doge-card secondary ${isSmallScreen && "mobile"}`}>
         <div className="card-header">
           <Typography variant="h5">
             <Trans>Farm Pool</Trans>
@@ -99,9 +99,9 @@ export default function ExternalStakePool() {
                 <TableBody>
                   <TableRow>
                     <TableCell>
-                      <Box className="dohm-pairs">
-                        <BondLogo bond={{ bondIconSvg: DohmLusdImg, isLP: true }}></BondLogo>
-                        <Typography>DOHM-LUSD</Typography>
+                      <Box className="doge-pairs">
+                        <BondLogo bond={{ bondIconSvg: DogeLusdImg, isLP: true }}></BondLogo>
+                        <Typography>DOGE-LUSD</Typography>
                       </Box>
                     </TableCell>
                     <TableCell align="left">
@@ -126,7 +126,7 @@ export default function ExternalStakePool() {
                       )}
                     </TableCell>
                     <TableCell align="left">
-                      {isLusdLoading ? <Skeleton width="80px" /> : (trim(dohmLusdReserveBalance, 2) || 0) + " SLP"}
+                      {isLusdLoading ? <Skeleton width="80px" /> : (trim(dogeLusdReserveBalance, 2) || 0) + " SLP"}
                     </TableCell>
                     <TableCell align="center">
                       <Button
@@ -149,9 +149,9 @@ export default function ExternalStakePool() {
           ) : (
             <div className="stake-pool">
               <div className={`pool-card-top-row ${isMobileScreen && "small"}`}>
-                <Box className="dohm-pairs">
-                  <BondLogo bond={{ bondIconSvg: DohmLusdImg, isLP: true }}></BondLogo>
-                  <Typography gutterBottom={false}>DOHM-LUSD</Typography>
+                <Box className="doge-pairs">
+                  <BondLogo bond={{ bondIconSvg: DogeLusdImg, isLP: true }}></BondLogo>
+                  <Typography gutterBottom={false}>DOGE-LUSD</Typography>
                 </Box>
               </div>
               <div className="pool-data">

@@ -78,10 +78,10 @@ export const changeApproval = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const dohmsContract = new ethers.Contract(addresses[networkID].DOHMS_ADDRESS, ierc20Abi, signer);
+    const dogesContract = new ethers.Contract(addresses[networkID].DOGEs_ADDRESS, ierc20Abi, signer);
 
     let approveTx;
-    let depositAllowance = await dohmsContract.allowance(address, addresses[networkID].PT_PRIZE_POOL_ADDRESS);
+    let depositAllowance = await dogesContract.allowance(address, addresses[networkID].PT_PRIZE_POOL_ADDRESS);
 
     // return early if approval already exists
     if (depositAllowance.gt(BigNumber.from("0"))) {
@@ -89,15 +89,15 @@ export const changeApproval = createAsyncThunk(
       return dispatch(
         fetchAccountSuccess({
           pooling: {
-            dohmsPool: +depositAllowance,
+            dogesPool: +depositAllowance,
           },
         }),
       );
     }
 
     try {
-      if (token === "dohms") {
-        approveTx = await dohmsContract.approve(
+      if (token === "doges") {
+        approveTx = await dogesContract.approve(
           addresses[networkID].PT_PRIZE_POOL_ADDRESS,
           ethers.utils.parseUnits("1000000000", "gwei").toString(),
         );
@@ -117,12 +117,12 @@ export const changeApproval = createAsyncThunk(
     }
 
     // go get fresh allowance
-    depositAllowance = await dohmsContract.allowance(address, addresses[networkID].PT_PRIZE_POOL_ADDRESS);
+    depositAllowance = await dogesContract.allowance(address, addresses[networkID].PT_PRIZE_POOL_ADDRESS);
 
     return dispatch(
       fetchAccountSuccess({
         pooling: {
-          dohmsPool: +depositAllowance,
+          dogesPool: +depositAllowance,
         },
       }),
     );

@@ -9,20 +9,20 @@ import { ReactComponent as Youtube } from "../../assets/icons/youtube.svg";
 export default function Social() {
   return (
     <div className="social-row">
-      <Link href="https://medium.com/@DogeOhmDao" target="_blank">
-        <SvgIcon color="primary" component={Medium} />
+      <Link href="https://medium.com/@VaultProtocolDao" target="_blank">
+        <SvgIcon component={Medium} />
       </Link>
 
-      <Link href="https://twitter.com/OfficialDogeOhm" target="_blank">
-        <SvgIcon color="primary" component={Twitter} />
+      <Link href="https://twitter.com/OfficialVaultProtocol" target="_blank">
+        <SvgIcon component={Twitter} />
       </Link>
 
       <Link href="https://discord.gg/kGzhS2cCzZ" target="_blank">
-        <SvgIcon color="primary" component={Discord} />
+        <SvgIcon component={Discord} />
       </Link>
 
-      <Link href="https://t.me/DogeOhmDao" target="_blank">
-        <SvgIcon color="primary" component={Telegram} />
+      <Link href="https://t.me/VaultProtocolDao" target="_blank">
+        <SvgIcon component={Telegram} />
       </Link>
     </div>
   );

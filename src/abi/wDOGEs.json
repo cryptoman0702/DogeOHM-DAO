@@ -9,12 +9,12 @@
         },
         {
           "internalType": "address",
-          "name": "_DOHM",
+          "name": "_DOGE",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "_DOHMs",
+          "name": "_DOGEs",
           "type": "address"
         }
       ],
@@ -73,7 +73,7 @@
     },
     {
       "inputs": [],
-      "name": "DOHM",
+      "name": "DOGE",
       "outputs": [
         {
           "internalType": "address",
@@ -86,7 +86,7 @@
     },
     {
       "inputs": [],
-      "name": "DOHMs",
+      "name": "DOGEs",
       "outputs": [
         {
           "internalType": "address",
@@ -105,7 +105,7 @@
           "type": "uint256"
         }
       ],
-      "name": "DOHMsValue",
+      "name": "DOGEsValue",
       "outputs": [
         {
           "internalType": "uint256",
@@ -357,7 +357,7 @@
           "type": "uint256"
         }
       ],
-      "name": "unwrapToDOHM",
+      "name": "unwrapToDOGE",
       "outputs": [
         {
           "internalType": "uint256",
@@ -376,7 +376,7 @@
           "type": "uint256"
         }
       ],
-      "name": "unwrapToDOHMs",
+      "name": "unwrapToDOGEs",
       "outputs": [
         {
           "internalType": "uint256",
@@ -395,7 +395,7 @@
           "type": "uint256"
         }
       ],
-      "name": "wDOHMValue",
+      "name": "wDOGEValue",
       "outputs": [
         {
           "internalType": "uint256",
@@ -414,7 +414,7 @@
           "type": "uint256"
         }
       ],
-      "name": "wrapFromDOHM",
+      "name": "wrapFromDOGE",
       "outputs": [
         {
           "internalType": "uint256",
@@ -433,7 +433,7 @@
           "type": "uint256"
         }
       ],
-      "name": "wrapFromDOHMs",
+      "name": "wrapFromDOGEs",
       "outputs": [
         {
           "internalType": "uint256",

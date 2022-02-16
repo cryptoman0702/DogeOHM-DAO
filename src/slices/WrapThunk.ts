@@ -1,7 +1,7 @@
 import { ethers, BigNumber } from "ethers";
 import { addresses } from "../constants";
 import { abi as ierc20ABI } from "../abi/IERC20.json";
-import { abi as wDOHMs } from "../abi/wDOHMs.json";
+import { abi as wDOGEs } from "../abi/wDOGEs.json";
 import { clearPendingTxn, fetchPendingTxns, getWrappingTypeText } from "./PendingTxnsSlice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchAccountSuccess, getBalances } from "./AccountSlice";
@@ -23,9 +23,9 @@ function alreadyApprovedToken(token: string, wrapAllowance: BigNumber, unwrapAll
   let applicableAllowance = bigZero;
 
   // determine which allowance to check
-  if (token === "dohms") {
+  if (token === "doges") {
     applicableAllowance = wrapAllowance;
-  } else if (token === "wdohms") {
+  } else if (token === "wdoges") {
     applicableAllowance = unwrapAllowance;
   }
 
@@ -44,15 +44,15 @@ function alreadyApprovedToken(token: string, wrapAllowance: BigNumber, unwrapAll
 //     }
 
 //     const signer = provider.getSigner();
-//     const dohmsContract = new ethers.Contract(addresses[networkID].DOHMS_ADDRESS as string, ierc20ABI, signer) ;
-//     // const wdohmsContract = new ethers.Contract(
-//     //   addresses[networkID].WDOHMS_ADDRESS as string,
+//     const dogesContract = new ethers.Contract(addresses[networkID].DOGEs_ADDRESS as string, ierc20ABI, signer) ;
+//     // const wdogesContract = new ethers.Contract(
+//     //   addresses[networkID].WDOGEs_ADDRESS as string,
 //     //   ierc20ABI,
 //     //   signer,
 //     // );
 //     let approveTx;
-//     //let wrapAllowance = await dohmsContract.allowance(address, addresses[networkID].WDOHMS_ADDRESS);
-//     //let unwrapAllowance = await wdohmsContract.allowance(address, addresses[networkID].WDOHMS_ADDRESS);
+//     //let wrapAllowance = await dogesContract.allowance(address, addresses[networkID].WDOGEs_ADDRESS);
+//     //let unwrapAllowance = await wdogesContract.allowance(address, addresses[networkID].WDOGEs_ADDRESS);
 
 //     // return early if approval has already happened
 //     // if (alreadyApprovedToken(token, wrapAllowance, unwrapAllowance)) {
@@ -60,29 +60,29 @@ function alreadyApprovedToken(token: string, wrapAllowance: BigNumber, unwrapAll
 //     //   return dispatch(
 //     //     fetchAccountSuccess({
 //     //       wrapping: {
-//     //         dohmWrap: +wrapAllowance,
-//     //         dohmUnwrap: +unwrapAllowance,
+//     //         dogeWrap: +wrapAllowance,
+//     //         dogeUnwrap: +unwrapAllowance,
 //     //       },
 //     //     }),
 //     //   );
 //     // }
 
 //     try {
-//       if (token === "dohms") {
+//       if (token === "doges") {
 //         // won't run if wrapAllowance > 0
-//         approveTx = await dohmsContract.approve(
-//           addresses[networkID].WDOHMS_ADDRESS,
+//         approveTx = await dogesContract.approve(
+//           addresses[networkID].WDOGEs_ADDRESS,
 //           ethers.utils.parseUnits("1000000000", "gwei").toString(),
 //         );
-//       } else if (token === "wdohms") {
-//         approveTx = await wdohmsContract.approve(
-//           addresses[networkID].WDOHMS_ADDRESS,
+//       } else if (token === "wdoges") {
+//         approveTx = await wdogesContract.approve(
+//           addresses[networkID].WDOGEs_ADDRESS,
 //           ethers.utils.parseUnits("1000000000", "gwei").toString(),
 //         );
 //       }
 
-//       const text = "Approve " + (token === "dohms" ? "Wrapping" : "Unwrapping");
-//       const pendingTxnType = token === "dohms" ? "approve_wrapping" : "approve_unwrapping";
+//       const text = "Approve " + (token === "doges" ? "Wrapping" : "Unwrapping");
+//       const pendingTxnType = token === "doges" ? "approve_wrapping" : "approve_unwrapping";
 //       if (approveTx) {
 //         dispatch(fetchPendingTxns({ txnHash: approveTx.hash, text, type: pendingTxnType }));
 
@@ -98,14 +98,14 @@ function alreadyApprovedToken(token: string, wrapAllowance: BigNumber, unwrapAll
 //     }
 
 //     // go get fresh allowances
-//     wrapAllowance = await dohmsContract.allowance(address, addresses[networkID].WDOHMS_ADDRESS);
-//     unwrapAllowance = await wdohmsContract.allowance(address, addresses[networkID].WDOHMS_ADDRESS);
+//     wrapAllowance = await dogesContract.allowance(address, addresses[networkID].WDOGEs_ADDRESS);
+//     unwrapAllowance = await wdogesContract.allowance(address, addresses[networkID].WDOGEs_ADDRESS);
 
 //     return dispatch(
 //       fetchAccountSuccess({
 //         wrapping: {
-//           dohmWrap: +wrapAllowance,
-//           dohmUnwrap: +unwrapAllowance,
+//           dogeWrap: +wrapAllowance,
+//           dogeUnwrap: +unwrapAllowance,
 //         },
 //       }),
 //     );
@@ -121,7 +121,7 @@ function alreadyApprovedToken(token: string, wrapAllowance: BigNumber, unwrapAll
 //     }
 
 //     const signer = provider.getSigner();
-//     const wdohmsContract = new ethers.Contract(addresses[networkID].WDOHMS_ADDRESS as string, wDOHMs, signer) ;
+//     const wdogesContract = new ethers.Contract(addresses[networkID].WDOGEs_ADDRESS as string, wDOGEs, signer) ;
 
 //     let wrapTx;
 //     let uaData: IUAData = {
@@ -134,10 +134,10 @@ function alreadyApprovedToken(token: string, wrapAllowance: BigNumber, unwrapAll
 //     try {
 //       if (action === "wrap") {
 //         uaData.type = "wrap";
-//         wrapTx = await wdohmsContract.wrap(ethers.utils.parseUnits(value, "gwei"));
+//         wrapTx = await wdogesContract.wrap(ethers.utils.parseUnits(value, "gwei"));
 //       } else {
 //         uaData.type = "unwrap";
-//         wrapTx = await wdohmsContract.unwrap(ethers.utils.parseUnits(value));
+//         wrapTx = await wdogesContract.unwrap(ethers.utils.parseUnits(value));
 //       }
 //       const pendingTxnType = action === "wrap" ? "wrapping" : "unwrapping";
 //       uaData.txHash = wrapTx.hash;

@@ -25,7 +25,7 @@ import { calculateOdds } from "../../helpers/33Together";
 import { ReactComponent as ArrowUp } from "src/assets/icons/arrow-up.svg";
 import { error } from "../../slices/MessagesSlice";
 
-const dohmsImg = getTokenImage("dohms");
+const dogesImg = getTokenImage("doges");
 
 export const PoolWithdraw = props => {
   const dispatch = useDispatch();
@@ -118,7 +118,7 @@ export const PoolWithdraw = props => {
       ) : (
         <Box className="withdrawal-container">
           <Box display="flex" alignItems="center" flexDirection={`${isMobileScreen ? "column" : "row"}`}>
-            <FormControl className="dohm-input" variant="outlined" color="primary">
+            <FormControl className="doge-input" variant="outlined" color="primary">
               <InputLabel htmlFor="amount-input"></InputLabel>
               <OutlinedInput
                 id="amount-input"
@@ -129,7 +129,7 @@ export const PoolWithdraw = props => {
                 onChange={e => setQuantity(parseFloat(e.target.value))}
                 startAdornment={
                   <InputAdornment position="start">
-                    <div className="logo-holder">{dohmsImg}</div>
+                    <div className="logo-holder">{dogesImg}</div>
                   </InputAdornment>
                 }
                 labelWidth={0}
@@ -150,16 +150,16 @@ export const PoolWithdraw = props => {
               onClick={() => onWithdraw("withdraw")}
             >
               {exitFee > 0
-                ? txnButtonText(pendingTransactions, "pool_withdraw", t`Withdraw Early & pay` + exitFee + " DOHMs")
-                : txnButtonText(pendingTransactions, "pool_withdraw", t`Withdraw DOHMs`)}
-              {/* Withdraw DOHMs */}
+                ? txnButtonText(pendingTransactions, "pool_withdraw", t`Withdraw Early & pay` + exitFee + " DOGEs")
+                : txnButtonText(pendingTransactions, "pool_withdraw", t`Withdraw DOGEs`)}
+              {/* Withdraw DOGEs */}
             </Button>
           </Box>
           {newOdds > 0 && quantity > 0 && (
             <Box padding={1}>
               <Typography color="error" variant="body2">
                 <Trans>
-                  Withdrawing {quantity} DOHMs reduces your odds of winning to 1 in {newOdds}
+                  Withdrawing {quantity} DOGEs reduces your odds of winning to 1 in {newOdds}
                 </Trans>
                 &nbsp;
               </Typography>
@@ -182,7 +182,7 @@ export const PoolWithdraw = props => {
               </Typography>
             </Box>
           )}
-          {/* NOTE (Appleseed): added this bc I kept losing track of which accounts I had DOHMs in during testing */}
+          {/* NOTE (Appleseed): added this bc I kept losing track of which accounts I had DOGEs in during testing */}
           <div className={`stake-user-data`}>
             <div className="data-row">
               <Typography variant="body1" align="left">

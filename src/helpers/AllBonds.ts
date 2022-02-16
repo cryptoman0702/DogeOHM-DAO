@@ -3,29 +3,29 @@ import { addresses } from "src/constants";
 
 import { ReactComponent as DaiImg } from "src/assets/tokens/DAI.svg";
 import { ReactComponent as BusdImg } from "src/assets/tokens/Busd.svg";
-import { ReactComponent as DohmDaiImg } from "src/assets/tokens/DOHM-DAI.svg";
-import { ReactComponent as DohmBusdImg } from "src/assets/tokens/DOHM-BUSD.svg";
+import { ReactComponent as DogeDaiImg } from "src/assets/tokens/DOGE-DAI.svg";
+import { ReactComponent as DogeBusdImg } from "src/assets/tokens/DOGE-BUSD.svg";
 import { ReactComponent as FraxImg } from "src/assets/tokens/FRAX.svg";
-import { ReactComponent as DohmFraxImg } from "src/assets/tokens/DOHM-FRAX.svg";
-import { ReactComponent as DohmLusdImg } from "src/assets/tokens/DOHM-LUSD.svg";
-import { ReactComponent as DohmEthImg } from "src/assets/tokens/DOHM-WETH.svg";
+import { ReactComponent as DogeFraxImg } from "src/assets/tokens/DOGE-FRAX.svg";
+import { ReactComponent as DogeLusdImg } from "src/assets/tokens/DOGE-LUSD.svg";
+import { ReactComponent as DogeEthImg } from "src/assets/tokens/DOGE-WETH.svg";
 import { ReactComponent as wFTMImg } from "src/assets/tokens/wFTM.svg";
 import { ReactComponent as LusdImg } from "src/assets/tokens/LUSD.svg";
 import { ReactComponent as CvxImg } from "src/assets/tokens/CVX.svg";
 
-import { abi as FraxDohmBondContract } from "src/abi/bonds/DohmFraxContract.json";
-import { abi as BondDohmDaiContract } from "src/abi/bonds/DohmDaiContract.json";
-import { abi as BondDohmBusdContract } from "src/abi/bonds/DohmBusdContract.json";
-import { abi as BondDohmLusdContract } from "src/abi/bonds/DohmLusdContract.json";
-import { abi as BondDohmEthContract } from "src/abi/bonds/DohmEthContract.json";
+import { abi as FraxDogeBondContract } from "src/abi/bonds/DogeFraxContract.json";
+import { abi as BondDogeDaiContract } from "src/abi/bonds/DogeDaiContract.json";
+import { abi as BondDogeBusdContract } from "src/abi/bonds/DogeBusdContract.json";
+import { abi as BondDogeLusdContract } from "src/abi/bonds/DogeLusdContract.json";
+import { abi as BondDogeEthContract } from "src/abi/bonds/DogeEthContract.json";
 
 import { abi as DaiBondContract } from "src/abi/bonds/DaiContract.json";
 import { abi as BusdBondContract } from "src/abi/bonds/BusdContract.json";
-import { abi as ReserveDohmLusdContract } from "src/abi/reserves/DohmLusd.json";
-import { abi as ReserveDohmDaiContract } from "src/abi/reserves/DohmBusd.json";
-import { abi as ReserveDohmBusdContract } from "src/abi/reserves/DohmDai.json";
-import { abi as ReserveDohmFraxContract } from "src/abi/reserves/DohmFrax.json";
-import { abi as ReserveDohmEthContract } from "src/abi/reserves/DohmEth.json";
+import { abi as ReserveDogeLusdContract } from "src/abi/reserves/DogeLusd.json";
+import { abi as ReserveDogeDaiContract } from "src/abi/reserves/DogeBusd.json";
+import { abi as ReserveDogeBusdContract } from "src/abi/reserves/DogeDai.json";
+import { abi as ReserveDogeFraxContract } from "src/abi/reserves/DogeFrax.json";
+import { abi as ReserveDogeEthContract } from "src/abi/reserves/DogeEth.json";
 
 import { abi as FraxBondContract } from "src/abi/bonds/FraxContract.json";
 import { abi as LusdBondContract } from "src/abi/bonds/LusdContract.json";
@@ -140,18 +140,18 @@ export const cvx_expired = new CustomBond({
   },
 });
 
-export const dohm_busd = new LPBond({
-  name: "dohm_busd_lp",
-  displayName: "DOHM-BUSD LP",
+export const doge_busd = new LPBond({
+  name: "doge_busd_lp",
+  displayName: "DOGE-BUSD LP",
   bondToken: "BUSD",
   isAvailable: { [NetworkID.Mainnet]: true, [NetworkID.Testnet]: false },
-  bondIconSvg: DohmBusdImg,
-  bondContractABI: BondDohmBusdContract,
-  reserveContract: ReserveDohmBusdContract,
+  bondIconSvg: DogeBusdImg,
+  bondContractABI: BondDogeBusdContract,
+  reserveContract: ReserveDogeBusdContract,
   networkAddrs: {
     [NetworkID.Mainnet]: {
-      bondAddress: "0xd918eF8786d8c2f30A7d79c68976F575F1C13018",
-      reserveAddress: "0x42F766D0327Ac163E36D26A9210BDaa910F7C771",
+      bondAddress: "0xa60f663055945139F27862331E9eb45208C7E84F",
+      reserveAddress: "0x716a54efe0d4f838ff6c7eb67f16e2a65ff7b20d",
     },
     [NetworkID.Testnet]: {
       bondAddress: "0xcF449dA417cC36009a1C6FbA78918c31594B9377",
@@ -171,7 +171,7 @@ export const busd = new StableBond({
   bondContractABI: BusdBondContract,
   networkAddrs: {
     [NetworkID.Mainnet]: {
-      bondAddress: "0xbED0d3Ef08ccF944c301cc58b9390958524061E2",
+      bondAddress: "0xA38aaFA41A40cee22fdAEc59540AD6697dE6b639",
       reserveAddress: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
     },
     [NetworkID.Testnet]: {
@@ -180,21 +180,21 @@ export const busd = new StableBond({
     },
   },
 });
-export const dohm_lusd = new LPBond({
-  name: "dohm_lusd_lp",
-  displayName: "DOHM-USDC LP",
+export const doge_lusd = new LPBond({
+  name: "doge_lusd_lp",
+  displayName: "DOGE-USDC LP",
   bondToken: "LUSD",
   isAvailable: { [NetworkID.Mainnet]: false, [NetworkID.Testnet]: true },
-  bondIconSvg: DohmLusdImg,
-  bondContractABI: BondDohmLusdContract,
-  reserveContract: ReserveDohmLusdContract,
+  bondIconSvg: DogeLusdImg,
+  bondContractABI: BondDogeLusdContract,
+  reserveContract: ReserveDogeLusdContract,
   networkAddrs: {
     [NetworkID.Mainnet]: {
       bondAddress: "0xFB1776299E7804DD8016303Df9c07a65c80F67b6",
       reserveAddress: "0xfDf12D1F85b5082877A6E070524f50F6c84FAa6b",
     },
     [NetworkID.Testnet]: {
-      // NOTE (appleseed-lusd): using dohm-dai rinkeby contracts
+      // NOTE (appleseed-lusd): using doge-dai rinkeby contracts
       bondAddress: "0xcF449dA417cC36009a1C6FbA78918c31594B9377",
       reserveAddress: "0x8D5a22Fb6A1840da602E56D1a260E56770e0bCE2",
     },
@@ -207,8 +207,8 @@ export const dohm_lusd = new LPBond({
 // Is it a stableCoin bond? use `new StableBond`
 // Is it an LP Bond? use `new LPBond`
 // Add new bonds to this array!!
-// export const allBonds = [dai, frax, eth, cvx, dohm_dai, dohm_frax, lusd, dohm_lusd, dohm_weth];
-export const allBonds = [busd,dohm_busd]; // ychm - removing ftm for starting
+// export const allBonds = [dai, frax, eth, cvx, doge_dai, doge_frax, lusd, doge_lusd, doge_weth];
+export const allBonds = [busd, doge_busd]; // ychm - removing ftm for starting
 // TODO (appleseed-expiredBonds): there may be a smarter way to refactor this
 export const allExpiredBonds = [cvx_expired];
 export const allBondsMap = allBonds.reduce((prevVal, bond) => {

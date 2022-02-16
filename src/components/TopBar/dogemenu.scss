@@ -1,22 +1,23 @@
-#dohm-menu-button {
+#doge-menu-button {
   padding: 12px;
   svg {
     margin-right: 3px;
     color: inherit !important;
   }
 }
-.dohm-menu-button-hover {
+.doge-menu-button-hover {
   z-index: 9;
 }
-#dohm-popper,
-#dohm-popper-pending {
+#doge-menu {
+  background-color: rgb(0,239,239) !important;
+}
+#doge-popper,
+#doge-popper-pending {
   z-index: 5;
-  background-color: #00000003;
-  backdrop-filter: blur(33px);
-  -webkit-backdrop-filter: blur(33px);
+  background-color: rgb(239,239,239);
   margin-top: 10px;
   border-radius: 10px;
-  .MuiPaper-root.dohm-menu {
+  .MuiPaper-root.doge-menu {
     padding: 16px 6px;
     display: flex;
     flex-direction: column;

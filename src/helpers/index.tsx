@@ -3,18 +3,19 @@ import { BigNumber, ethers } from "ethers";
 import axios from "axios";
 import { abi as PairContractABI } from "../abi/PairContract.json";
 import { abi as RedeemHelperABI } from "../abi/RedeemHelper.json";
+import { abi as TreasuryContractABI } from "../abi/TreasuryContract.json";
 
 import { SvgIcon } from "@material-ui/core";
-import { ReactComponent as DohmImg } from "../assets/tokens/token_DOHM.svg";
-import { ReactComponent as DohmSImg } from "../assets/tokens/token_DOHMs.svg";
+import { ReactComponent as DogeImg } from "../assets/tokens/token_DOGE.svg";
+import { ReactComponent as DogeSImg } from "../assets/tokens/token_DOGEs.svg";
 
-import { dohm_busd } from "./AllBonds";
+import { doge_busd } from "./AllBonds";
 import { JsonRpcSigner, StaticJsonRpcProvider } from "@ethersproject/providers";
 import { IBaseAsyncThunk } from "src/slices/interfaces";
 
 export async function getMarketPrice({ networkID, provider }: IBaseAsyncThunk) {
-  const dohm_busd_address = dohm_busd.getAddressForReserve(networkID);
-  const pairContract = new ethers.Contract(dohm_busd_address, PairContractABI, provider);
+  const doge_busd_address = doge_busd.getAddressForReserve(networkID);
+  const pairContract = new ethers.Contract(doge_busd_address, PairContractABI, provider);
   const reserves = await pairContract.getReserves();
   
   const marketPrice = Number(reserves[1].toString()) / Number(reserves[0].toString()); // ychm marketprice reserves
@@ -34,6 +35,11 @@ export async function getTokenPrice(tokenId = "olympus") {
   } catch (e) {
     // console.log("coingecko api error: ", e);
   }
+}
+export async function getTicketPrice({ networkID, provider }: IBaseAsyncThunk) {
+  const treasuryContract =  new ethers.Contract(addresses[networkID].TREASURY_ADDRESS, TreasuryContractABI, provider.getSigner());
+  const ticketPrice = await treasuryContract.ticketPrice(); // ychm ticket return amount calc
+  return ticketPrice;
 }
 
 export function shorten(str: string) {
@@ -110,19 +116,19 @@ export function prettifySeconds(seconds: number, resolution?: string) {
   return result;
 }
 
-function getDohmsTokenImage() {
-  return <SvgIcon component={DohmSImg} viewBox="0 0 100 100" style={{ height: "1rem", width: "1rem" }} />;
+function getDogesTokenImage() {
+  return <SvgIcon component={DogeSImg} viewBox="0 0 100 100" style={{ height: "1rem", width: "1rem" }} />;
 }
 
-export function getDohmTokenImage(w?: number, h?: number) {
+export function getDogeTokenImage(w?: number, h?: number) {
   const height = h == null ? "32px" : `${h}px`;
   const width = w == null ? "32px" : `${w}px`;
-  return <SvgIcon component={DohmImg} viewBox="0 0 32 32" style={{ height, width }} />;
+  return <SvgIcon component={DogeImg} viewBox="0 0 32 32" style={{ height, width }} />;
 }
 
 export function getTokenImage(name: string) {
-  if (name === "dohm") return getDohmTokenImage();
-  if (name === "dohms") return getDohmsTokenImage();
+  if (name === "doge") return getDogeTokenImage();
+  if (name === "doges") return getDogesTokenImage();
 }
 
 // TS-REFACTOR-NOTE - Used for:

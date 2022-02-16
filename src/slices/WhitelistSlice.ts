@@ -79,14 +79,13 @@ export const getWhitelistEligibility = createAsyncThunk(
   "whitelist/getWhitelistEligibility",
   async ({ address, networkID, provider, contract }: IBaseWhitelistAsyncThunk, { dispatch }) => {
     providerCheck(dispatch, provider);
-    // const participants = contracts[contract];
-    // let eligibility = false;
-    // for (let i = 0; i < participants.length; i++)
-    //   if (participants[i].toLocaleLowerCase() === address.toLocaleLowerCase()) eligibility = true;
-    const whitelistContract = selectContract(networkID, provider, contract);
-    const eligibility = await whitelistContract.verify(address.toLocaleLowerCase());
-    console.log("ychm log ",eligibility);
-    return { eligibility: eligibility};
+    const participants = contracts[contract];
+    let eligibility = false;
+    for (let i = 0; i < participants.length; i++)
+      if (participants[i].toLocaleLowerCase() === address.toLocaleLowerCase()) eligibility = true;
+    if ( contract == 0 )
+      return { mainEligibility: eligibility};
+    else return { ogEligibility: eligibility};
   },
 );
 

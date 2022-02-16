@@ -73,7 +73,7 @@ export function WhitelistPresaleCardExtended(props) {
     else setEligibility("Ineligible");
   }, [eligibility]);
   return (
-    <Card className="dohm-card">
+    <Card className="doge-card">
       <Box display="flex">
         <CardHeader title={title} />
       </Box>
@@ -164,8 +164,9 @@ export function WhitelistPresaleCardExtended(props) {
       </div>
       <div className="card-layout">
         <span>Conversion Rate:</span>
-        <span className="span-colour">100 BUSD : 1 DOHM</span>
+        <span className="span-colour">100 BUSD : 1 DOGE</span>
       </div>
+      <div className="card-layout" />
       <div className="card-layout">
         <span>Contribution Eligibility:</span>
         <span className="span-colour">
@@ -176,6 +177,7 @@ export function WhitelistPresaleCardExtended(props) {
           )}
         </span>
       </div>
+      <div className="card-layout" />
       <div className="card-layout">
         <span>Remaining Contribution:</span>
         <span className="span-colour">
@@ -202,7 +204,7 @@ export function WhitelistPresaleCardExtended(props) {
           {amountContributed === null ? (
             <Skeleton variant="text" width={"100px"} />
           ) : (
-            <b>{(amountContributed / 100 / 10 ** 18).toFixed(2).toString() + " DOHM"}</b>
+            <b>{(amountContributed / 100 / 10 ** 18).toFixed(2).toString() + " DOGE"}</b>
           )}
         </span>
       </div>

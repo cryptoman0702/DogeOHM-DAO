@@ -1,10 +1,17 @@
 import { useSelector } from "react-redux";
-import { Paper, Grid, Typography, Box, Zoom } from "@material-ui/core";
+import { Paper, Grid, Typography, Box, Zoom, SvgIcon } from "@material-ui/core";
 import { trim } from "../../helpers";
 import "./dashboard.scss";
 import { Skeleton } from "@material-ui/lab";
 import { t, Trans } from "@lingui/macro";
 import { motion } from "framer-motion";
+
+import  { ReactComponent as CirculationImg } from "../../assets/icons/circulation.svg";
+import  { ReactComponent as LotteryImg } from "../../assets/icons/lotterygiveaway.svg";
+import  { ReactComponent as PriceImg } from "../../assets/icons/price.svg";
+import  { ReactComponent as TreasuryBalImg } from "../../assets/icons/treasuryBal.svg";
+import  { ReactComponent as TreasuryNFTImg } from "../../assets/icons/treasuryNFT.svg";
+import  { ReactComponent as StakeImg } from "../../assets/icons/stakebal.svg";
 
 function Dashboard() {
   // Use marketPrice as indicator of loading.
@@ -25,46 +32,13 @@ function Dashboard() {
   return (
     <div id="dashboard-view">
       <Grid container spacing={1} className="top-row-data">
-        <Grid item lg={4} md={4} sm={3} xs={5} className="olympus-card">
-          <Zoom in={true}>
-            <Paper className="dohm-card">
-              <Typography variant="h6">
-                <Trans>Price</Trans>
-              </Typography>
-              <Typography variant="h5">
-                {isAppLoading ? <Skeleton width="100px" /> : `$${trim(marketPrice, 2)}`}
-              </Typography>
-            </Paper>
-          </Zoom>
-        </Grid>
-
-        <Grid item lg={4} md={4} sm={4} xs={7}>
-          <Zoom in={true}>
-            <Paper className="dohm-card">
-              <Typography variant="h6">
-                <Trans>Market Cap</Trans>
-              </Typography>
-              <Typography variant="h5">
-                {isAppLoading ? (
-                  <Skeleton width="160px" />
-                ) : (
-                  new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                    maximumFractionDigits: 0,
-                    minimumFractionDigits: 0,
-                  }).format(marketCap)
-                )}
-              </Typography>
-            </Paper>
-          </Zoom>
-        </Grid>
-
         <Grid item lg={4} md={4} sm={5} xs={12}>
           <Zoom in={true}>
-            <Paper className="dohm-card">
+            <Paper className="doge-card">
+              <SvgIcon component={CirculationImg} />
+              <div>
               <Typography variant="h6">
-                <Trans>Supply (circulating/total)</Trans>
+                <Trans>Circulating Supply</Trans>
               </Typography>
               <Typography variant="h5">
                 {isAppLoading ? (
@@ -74,17 +48,119 @@ function Dashboard() {
                     maximumFractionDigits: 0,
                     minimumFractionDigits: 0,
                   }).format(circSupply)}
-                    /
-                    ${new Intl.NumberFormat("en-US", {
-                      maximumFractionDigits: 0,
-                      minimumFractionDigits: 0,
-                    }).format(totalSupply)}`
+                    `
                 )}
               </Typography>
+              </div>
+            </Paper>
+          </Zoom>
+        </Grid>
+        <Grid item lg={4} md={4} sm={3} xs={5} className="olympus-card">
+          <Zoom in={true}>
+            <Paper className="doge-card">
+              <SvgIcon component={PriceImg} />
+              <div>
+                <Typography variant="h6">
+                  <Trans>DOGE Price</Trans>
+                </Typography>
+                <Typography variant="h5">
+                  {isAppLoading ? <Skeleton width="100px" /> : `$${trim(marketPrice, 2)}`}
+                </Typography>
+              </div>
+            </Paper>
+          </Zoom>
+        </Grid>
+
+        <Grid item lg={4} md={4} sm={4} xs={7}>
+          <Zoom in={true}>
+            <Paper className="doge-card">
+              <SvgIcon component={TreasuryBalImg} />
+              <div>
+                <Typography variant="h6">
+                  <Trans>Treasury Balance</Trans>
+                </Typography>
+                <Typography variant="h5">
+                  {isAppLoading ? (
+                    <Skeleton width="160px" />
+                  ) : (
+                    new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                      maximumFractionDigits: 0,
+                      minimumFractionDigits: 0,
+                    }).format(marketCap)
+                  )}
+                </Typography>
+              </div>
             </Paper>
           </Zoom>
         </Grid>
       </Grid>
+      {/* <Grid container spacing={1} className="top-row-data">
+        <Grid item lg={4} md={4} sm={5} xs={12}>
+          <Zoom in={true}>
+            <Paper className="doge-card">
+              <SvgIcon component={TreasuryNFTImg} />
+              <div>
+                <Typography variant="h6">
+                  <Trans>Treasury NFTs</Trans>
+                </Typography>
+                <Typography variant="h5">
+                  {isAppLoading ? (
+                    <Skeleton width="250px" />
+                  ) : (
+                    `${new Intl.NumberFormat("en-US", {
+                      maximumFractionDigits: 0,
+                      minimumFractionDigits: 0,
+                    }).format(circSupply)}
+                      `
+                  )}
+                </Typography>
+              </div>
+            </Paper>
+          </Zoom>
+        </Grid>
+        <Grid item lg={4} md={4} sm={3} xs={5} className="olympus-card">
+          <Zoom in={true}>
+            <Paper className="doge-card">
+              <SvgIcon component={LotteryImg} />
+              <div>
+                <Typography variant="h6">
+                  <Trans>Total Lottery Giveaway</Trans>
+                </Typography>
+                <Typography variant="h5">
+                  {isAppLoading ? <Skeleton width="100px" /> : `$${trim(marketPrice, 2)}`}
+                </Typography>
+              </div>
+            </Paper>
+          </Zoom>
+        </Grid>
+
+        <Grid item lg={4} md={4} sm={4} xs={7}>
+          <Zoom in={true}>
+            <Paper className="doge-card">
+              <SvgIcon component={StakeImg} />
+              <div>
+                <Typography variant="h6">
+                  <Trans>Defi Staking Balance</Trans>
+                </Typography>
+                <Typography variant="h5">
+                  {isAppLoading ? (
+                    <Skeleton width="160px" />
+                  ) : (
+                    new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                      maximumFractionDigits: 0,
+                      minimumFractionDigits: 0,
+                    }).format(marketCap)
+                  )}
+                </Typography>
+              </div>
+            </Paper>
+          </Zoom>
+        </Grid> 
+      </Grid>*/}
 
       <Box className="main-data-area">
         <Grid container spacing={2} className="data-grid">
@@ -160,7 +236,7 @@ function Dashboard() {
                 frameBorder="0"
                 loading="lazy"
                 src="https://duneanalytics.com/embeds/28756/58813/c7893c75-d8f1-421e-85c3-556a22cd7885"
-                title="DOHM Stakers"
+                title="DOGE Stakers"
               />
             </div>
           </Grid>

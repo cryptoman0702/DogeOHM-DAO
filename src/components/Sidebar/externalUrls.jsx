@@ -11,14 +11,14 @@ const externalUrls = [
   //   icon: <SvgIcon color="primary" component={SpiritSwap} />,
   // },
   {
-    title: <Trans>Governance (Coming Soon)</Trans>,
+    title: <Trans>Governance</Trans>,
     url: "",
-    icon: <SvgIcon color="primary" component={GovIcon} />,
+    icon: <SvgIcon component={GovIcon} />,
   },
   {
     title: <Trans>Docs</Trans>,
-    url: "https://dogeohmdao.gitbook.io/dogeohm-dao/",
-    icon: <SvgIcon color="primary" component={DocsIcon} />,
+    url: "https://vaultprotocoldao.gitbook.io/vaultprotocol-dao/",
+    icon: <SvgIcon component={DocsIcon} />,
   },
 ];
 

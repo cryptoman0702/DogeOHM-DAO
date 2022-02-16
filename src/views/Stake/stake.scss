@@ -27,13 +27,13 @@
     justify-items: center;
   }
 
-  .dohm-card .card-header {
+  .doge-card .card-header {
     position: relative;
   }
-  .dohm-card .header {
+  .doge-card .header {
     min-height: 3em;
   }
-  .dohm-card.secondary .card-header {
+  .doge-card.secondary .card-header {
     min-height: 33px !important;
     height: 20px;
   }
@@ -43,7 +43,7 @@
   }
 }
 
-.migrate-dohms-button {
+.migrate-doges-button {
   position: absolute;
   right: 0px;
   top: 0px;
@@ -58,7 +58,7 @@
   }
 }
 
-.migrate-dohms-button.complete {
+.migrate-doges-button.complete {
   color: #35ee66 !important;
 }
 
@@ -83,7 +83,7 @@
     align-items: center;
     text-overflow: ellipsis;
     // white-space: nowrap;
-    overflow: hidden;
+    vertical-align: top;
   }
 }
 
@@ -95,7 +95,7 @@
   }
 }
 
-.dohm-logo-tiny {
+.doge-logo-tiny {
   height: 14px;
   width: 14px;
   vertical-align: middle;
@@ -154,7 +154,7 @@
   }
 }
 
-.dohm-input {
+.doge-input {
   max-width: 542px;
   width: 100%;
   margin: 5px !important;
@@ -208,7 +208,7 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    .dohm-pairs p {
+    .doge-pairs p {
       margin-bottom: 0 !important;
     }
   }

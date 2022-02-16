@@ -20,7 +20,7 @@ import {
 import TabPanel from "../../components/TabPanel";
 import InfoTooltip from "../../components/InfoTooltip/InfoTooltip.jsx";
 import { ReactComponent as InfoIcon } from "../../assets/icons/info-fill.svg";
-import { getDohmTokenImage, getTokenImage, trim, formatCurrency } from "../../helpers";
+import { getDogeTokenImage, getTokenImage, trim, formatCurrency } from "../../helpers";
 //import { changeApproval, changeWrap } from "../../slices/WrapThunk";
 import "../Stake/stake.scss";
 import { useWeb3Context } from "src/hooks/web3Context";
@@ -36,8 +36,8 @@ function a11yProps(index) {
   };
 }
 
-const DohmsImg = getTokenImage("dohms");
-const dohmImg = getDohmTokenImage(16, 16);
+const DogesImg = getTokenImage("doges");
+const dogeImg = getDogeTokenImage(16, 16);
 
 const useStyles = makeStyles(theme => ({
   textHighlight: {
@@ -59,25 +59,25 @@ function Wrap() {
     return state.app.currentIndex;
   });
 
-  const DohmsPrice = useSelector(state => {
+  const DogesPrice = useSelector(state => {
     return state.app.marketPrice;
   });
 
-  const wDohmsPrice = useSelector(state => {
+  const wDogesPrice = useSelector(state => {
     return state.app.marketPrice * state.app.currentIndex;
   });
 
-  const dohmsBalance = useSelector(state => {
-    return state.account.balances && state.account.balances.dohms;
+  const dogesBalance = useSelector(state => {
+    return state.account.balances && state.account.balances.doges;
   });
-  const wdohmsBalance = useSelector(state => {
-    return state.account.balances && state.account.balances.wdohms;
+  const wdogesBalance = useSelector(state => {
+    return state.account.balances && state.account.balances.wdoges;
   });
   const wrapAllowance = useSelector(state => {
-    return state.account.wrapping && state.account.wrapping.dohmWrap;
+    return state.account.wrapping && state.account.wrapping.dogeWrap;
   });
   const unwrapAllowance = useSelector(state => {
-    return state.account.wrapping && state.account.wrapping.dohmUnwrap;
+    return state.account.wrapping && state.account.wrapping.dogeUnwrap;
   });
 
   const pendingTransactions = useSelector(state => {
@@ -86,9 +86,9 @@ function Wrap() {
 
   const setMax = () => {
     if (view === 0) {
-      setQuantity(dohmsBalance);
+      setQuantity(dogesBalance);
     } else {
-      setQuantity(wdohmsBalance);
+      setQuantity(wdogesBalance);
     }
   };
 
@@ -106,16 +106,16 @@ function Wrap() {
     // 1st catch if quantity > balance
     if (
       action === "wrap" &&
-      ethers.utils.parseUnits(quantity, "gwei").gt(ethers.utils.parseUnits(dohmsBalance, "gwei"))
+      ethers.utils.parseUnits(quantity, "gwei").gt(ethers.utils.parseUnits(dogesBalance, "gwei"))
     ) {
-      return dispatch(error("You cannot wrap more than your DOHMs balance."));
+      return dispatch(error("You cannot wrap more than your DOGEs balance."));
     }
 
     if (
       action === "unwrap" &&
-      ethers.utils.parseUnits(quantity, "ether").gt(ethers.utils.parseUnits(wdohmsBalance, "ether"))
+      ethers.utils.parseUnits(quantity, "ether").gt(ethers.utils.parseUnits(wdogesBalance, "ether"))
     ) {
-      return dispatch(error("You cannot unwrap more than your wDOHMs balance."));
+      return dispatch(error("You cannot unwrap more than your wDOGEs balance."));
     }
 
     await dispatch(changeWrap({ address, action, value: quantity.toString(), provider, networkID: chainID }));
@@ -123,8 +123,8 @@ function Wrap() {
 
   const hasAllowance = useCallback(
     token => {
-      if (token === "dohms") return wrapAllowance > 0;
-      if (token === "wdohms") return wrapAllowance > 0;
+      if (token === "doges") return wrapAllowance > 0;
+      if (token === "wdoges") return wrapAllowance > 0;
       return 0;
     },
     [wrapAllowance, unwrapAllowance],
@@ -133,7 +133,7 @@ function Wrap() {
   const isAllowanceDataLoading = (wrapAllowance == null && view === 0) || (unwrapAllowance == null && view === 1);
 
   const isUnwrap = view === 1;
-  const convertedQuantity = isUnwrap ? (quantity * wDohmsPrice) / DohmsPrice : (quantity * DohmsPrice) / wDohmsPrice;
+  const convertedQuantity = isUnwrap ? (quantity * wDogesPrice) / DogesPrice : (quantity * DogesPrice) / wDogesPrice;
 
   let modalButton = [];
 
@@ -150,19 +150,19 @@ function Wrap() {
   return (
     <div id="stake-view">
       <Zoom in={true} onEntered={() => setZoomed(true)}>
-        <Paper className={`dohm-card`}>
+        <Paper className={`doge-card`}>
           <Grid container direction="column" spacing={2}>
             <Grid item>
               <div className="card-header">
                 <Typography variant="h5">Wrap / Unwrap</Typography>
                 <Link
-                  className="migrate-dohms-button"
+                  className="migrate-doges-button"
                   style={{ textDecoration: "none" }}
-                  href="https://docs.olympusdao.finance/main/contracts/tokens#wdohms"
-                  aria-label="wdohms-wut"
+                  href="https://docs.olympusdao.finance/main/contracts/tokens#wdoges"
+                  aria-label="wdoges-wut"
                   target="_blank"
                 >
-                  <Typography>wDOHMs</Typography> <SvgIcon component={InfoIcon} color="primary" />
+                  <Typography>wDOGEs</Typography> <SvgIcon component={InfoIcon} color="primary" />
                 </Link>
               </div>
             </Grid>
@@ -171,12 +171,12 @@ function Wrap() {
               <div className="stake-top-metrics">
                 <Grid container spacing={2} alignItems="flex-end">
                   <Grid item xs={12} sm={4} md={4} lg={4}>
-                    <div className="wrap-DOHMs">
+                    <div className="wrap-DOGEs">
                       <Typography variant="h5" color="textSecondary">
-                        DOHMs Price
+                        DOGEs Price
                       </Typography>
                       <Typography variant="h4">
-                        {DohmsPrice ? formatCurrency(DohmsPrice, 2) : <Skeleton width="150px" />}
+                        {DogesPrice ? formatCurrency(DogesPrice, 2) : <Skeleton width="150px" />}
                       </Typography>
                     </div>
                   </Grid>
@@ -186,22 +186,22 @@ function Wrap() {
                         Current Index
                       </Typography>
                       <Typography variant="h4">
-                        {currentIndex ? <>{trim(currentIndex, 1)} DOHM</> : <Skeleton width="150px" />}
+                        {currentIndex ? <>{trim(currentIndex, 1)} DOGE</> : <Skeleton width="150px" />}
                       </Typography>
                     </div>
                   </Grid>
                   <Grid item xs={12} sm={4} md={4} lg={4}>
-                    <div className="wrap-wDOHMs">
+                    <div className="wrap-wDOGEs">
                       <Typography variant="h5" color="textSecondary">
-                        wDOHMs Price
+                        wDOGEs Price
                         <InfoTooltip
                           message={
-                            "wDOHMs = DOHMs * index\n\nThe price of wDOHMs is equal to the price of DOHM multiplied by the current index"
+                            "wDOGEs = DOGEs * index\n\nThe price of wDOGEs is equal to the price of DOGE multiplied by the current index"
                           }
                         />
                       </Typography>
                       <Typography variant="h4">
-                        {wDohmsPrice ? formatCurrency(wDohmsPrice, 2) : <Skeleton width="150px" />}
+                        {wDogesPrice ? formatCurrency(wDogesPrice, 2) : <Skeleton width="150px" />}
                       </Typography>
                     </div>
                   </Grid>
@@ -215,7 +215,7 @@ function Wrap() {
                   <div className="wallet-menu" id="wallet-menu">
                     {modalButton}
                   </div>
-                  <Typography variant="h6">Connect your wallet to wrap DOHMs</Typography>
+                  <Typography variant="h6">Connect your wallet to wrap DOGEs</Typography>
                 </div>
               ) : (
                 <>
@@ -235,20 +235,20 @@ function Wrap() {
                     </Tabs>
                     <Box className="stake-action-row " display="flex" alignItems="center" style={{ paddingBottom: 0 }}>
                       {address && !isAllowanceDataLoading ? (
-                        !hasAllowance("dohms") && view === 0 ? (
+                        !hasAllowance("doges") && view === 0 ? (
                           <Box className="help-text">
                             <Typography variant="body1" className="stake-note" color="textSecondary">
                               {view === 0 && (
                                 <>
-                                  First time wrapping <b>DOHMs</b>?
+                                  First time wrapping <b>DOGEs</b>?
                                   <br />
-                                  Please approve Olympus Dao to use your <b>DOHMs</b> for wrapping.
+                                  Please approve Olympus Dao to use your <b>DOGEs</b> for wrapping.
                                 </>
                               )}
                             </Typography>
                           </Box>
                         ) : (
-                          <FormControl className="dohm-input" variant="outlined" color="primary">
+                          <FormControl className="doge-input" variant="outlined" color="primary">
                             <InputLabel htmlFor="amount-input"></InputLabel>
                             <OutlinedInput
                               id="amount-input"
@@ -273,7 +273,7 @@ function Wrap() {
                       )}
 
                       <TabPanel value={view} index={0} className="stake-tab-panel">
-                        {address && hasAllowance("dohms") ? (
+                        {address && hasAllowance("doges") ? (
                           <Button
                             className="stake-button"
                             variant="contained"
@@ -283,7 +283,7 @@ function Wrap() {
                               onChangeWrap("wrap");
                             }}
                           >
-                            {txnButtonText(pendingTransactions, "wrapping", "Wrap DOHMs")}
+                            {txnButtonText(pendingTransactions, "wrapping", "Wrap DOGEs")}
                           </Button>
                         ) : (
                           <Button
@@ -292,7 +292,7 @@ function Wrap() {
                             color="primary"
                             disabled={isPendingTxn(pendingTransactions, "approve_wrapping")}
                             onClick={() => {
-                              onSeekApproval("dohms");
+                              onSeekApproval("doges");
                             }}
                           >
                             {txnButtonText(pendingTransactions, "approve_wrapping", "Approve")}
@@ -310,7 +310,7 @@ function Wrap() {
                             onChangeWrap("unwrap");
                           }}
                         >
-                          {txnButtonText(pendingTransactions, "unwrapping", "Unwrap DOHMs")}
+                          {txnButtonText(pendingTransactions, "unwrapping", "Unwrap DOGEs")}
                         </Button>
                       </TabPanel>
                     </Box>
@@ -319,8 +319,8 @@ function Wrap() {
                       <Box padding={1}>
                         <Typography variant="body2" className={classes.textHighlight}>
                           {isUnwrap
-                            ? `Unwrapping ${quantity} wDOHMs will result in ${trim(convertedQuantity, 4)} DOHMs`
-                            : `Wrapping ${quantity} DOHMs will result in ${trim(convertedQuantity, 4)} wDOHMs`}
+                            ? `Unwrapping ${quantity} wDOGEs will result in ${trim(convertedQuantity, 4)} DOGEs`
+                            : `Wrapping ${quantity} DOGEs will result in ${trim(convertedQuantity, 4)} wDOGEs`}
                         </Typography>
                       </Box>
                     )}
@@ -330,13 +330,13 @@ function Wrap() {
                     <div className="data-row">
                       <Typography variant="body1">Wrappable Balance</Typography>
                       <Typography variant="body1">
-                        {isAppLoading ? <Skeleton width="80px" /> : <>{trim(dohmsBalance, 4)} DOHMs</>}
+                        {isAppLoading ? <Skeleton width="80px" /> : <>{trim(dogesBalance, 4)} DOGEs</>}
                       </Typography>
                     </div>
                     <div className="data-row">
                       <Typography variant="body1">Unwrappable Balance</Typography>
                       <Typography variant="body1">
-                        {isAppLoading ? <Skeleton width="80px" /> : <>{trim(wdohmsBalance, 4)} wDOHMs</>}
+                        {isAppLoading ? <Skeleton width="80px" /> : <>{trim(wdogesBalance, 4)} wDOGEs</>}
                       </Typography>
                     </div>
                   </div>

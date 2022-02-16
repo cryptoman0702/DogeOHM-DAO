@@ -7,6 +7,7 @@ import poolDataReducer from "./slices/PoolThunk";
 import lusdDataReducer from "./slices/LusdSlice";
 import messagesReducer from "./slices/MessagesSlice";
 import whitelistReducer from "./slices/WhitelistSlice";
+import lotteryReducer from "./slices/LotterySlice";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     lusdData: lusdDataReducer,
     messages: messagesReducer,
     whitelist: whitelistReducer,
+    lottery: lotteryReducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false }),
 });

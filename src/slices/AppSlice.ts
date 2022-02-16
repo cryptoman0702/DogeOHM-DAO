@@ -2,8 +2,8 @@ import { ethers } from "ethers";
 import { addresses } from "../constants";
 import { abi as Staking } from "../abi/Staking.json";
 import { abi as ierc20Abi } from "../abi/IERC20.json";
-import { abi as DOHMsv2 } from "../abi/Dohmsv2.json";
-import { setAll, getTokenPrice, getMarketPrice } from "../helpers";
+import { abi as DOGEsv2 } from "../abi/Dogesv2.json";
+import { setAll, getTokenPrice, getTicketPrice, getMarketPrice } from "../helpers";
 import apollo from "../lib/apolloClient.js";
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "src/store";
@@ -26,15 +26,15 @@ export const loadAppDetails = createAsyncThunk(
     }
     protocolMetrics(first: 1, orderBy: timestamp, orderDirection: desc) {
       timestamp
-      dohmCirculatingSupply
-      DohmsCirculatingSupply
+      dogeCirculatingSupply
+      sDOGECirculatingSupply
       totalSupply
-      dohmPrice
+      dogePrice
       marketCap
       totalValueLocked
       treasuryMarketValue
       nextEpochRebase
-      nextDistributedDohm
+      nextDistributedDoge
     }
   }
 `;
@@ -48,29 +48,31 @@ export const loadAppDetails = createAsyncThunk(
 
     // const stakingTVL = parseFloat(graphData.data.protocolMetrics[0].totalValueLocked);
     // NOTE (appleseed): marketPrice from Graph was delayed, so get CoinGecko price
-    // const marketPrice = parseFloat(graphData.data.protocolMetrics[0].dohmPrice);
+    // const marketPrice = parseFloat(graphData.data.protocolMetrics[0].dogePrice);
     let marketPrice;
+    let ticketPrice;
     try {
       const originalPromiseResult = await dispatch(
         loadMarketPrice({ networkID: networkID, provider: provider }),
       ).unwrap();
       marketPrice = originalPromiseResult?.marketPrice;
+      ticketPrice = originalPromiseResult?.ticketPrice;
     } catch (rejectedValueOrSerializedError) {
       // handle error here
       console.error("Returned a null response from dispatch(loadMarketPrice)");
       return;
     }
-    const decimals = 1000000000
-    const dohmContract = new ethers.Contract(addresses[networkID].DOHM_ADDRESS, ierc20Abi, provider);
-    const totalSupply = await dohmContract.totalSupply() / decimals;
+    const decimals = 1000000000;
+    const dogeContract = new ethers.Contract(addresses[networkID].DOGE_ADDRESS, ierc20Abi, provider);
+    const totalSupply = await dogeContract.totalSupply() / decimals;
 
-    const dohmsMainContract = new ethers.Contract(addresses[networkID].DOHMS_ADDRESS as string, DOHMsv2, provider);
-    const circ = await dohmsMainContract.circulatingSupply();
+    const dogesMainContract = new ethers.Contract(addresses[networkID].DOGEs_ADDRESS as string, DOGEsv2, provider);
+    const circ = await dogesMainContract.circulatingSupply();
     const circSupply = circ / decimals;
     const marketCap = marketPrice * circSupply;
-    const stakingTVL = await dohmContract.balanceOf(addresses[networkID].STAKING_ADDRESS) / decimals * marketPrice
+    const stakingTVL = await dogeContract.balanceOf(addresses[networkID].STAKING_ADDRESS) / decimals * marketPrice
     // const marketCap = parseFloat(graphData.data.protocolMetrics[0].marketCap);
-    // const circSupply = parseFloat(graphData.data.protocolMetrics[0].dohmCirculatingSupply);
+    // const circSupply = parseFloat(graphData.data.protocolMetrics[0].dogeCirculatingSupply);
     // const totalSupply = parseFloat(graphData.data.protocolMetrics[0].totalSupply);
     // const treasuryMarketValue = parseFloat(graphData.data.protocolMetrics[0].treasuryMarketValue);
     // const currentBlock = parseFloat(graphData.data._meta.block.number);
@@ -80,6 +82,7 @@ export const loadAppDetails = createAsyncThunk(
       return {
         stakingTVL,
         marketPrice,
+        ticketPrice,
         marketCap,
         circSupply,
         totalSupply,
@@ -94,9 +97,9 @@ export const loadAppDetails = createAsyncThunk(
       provider,
     );
 
-    // const dohmsMainContract = new ethers.Contract(
-    //   addresses[networkID].DOHMS_ADDRESS as string,
-    //   DOHMsv2,
+    // const dogesMainContract = new ethers.Contract(
+    //   addresses[networkID].DOGEs_ADDRESS as string,
+    //   DOGEsv2,
     //   provider,
     // ) ;
 
@@ -104,7 +107,7 @@ export const loadAppDetails = createAsyncThunk(
     const epoch = await stakingContract.epoch();
     const stakingReward = epoch.distribute;
     //console.log(stakingReward);
-    // const circ = await dohmsMainContract.circulatingSupply();
+    // const circ = await dogesMainContract.circulatingSupply();
     let stakingRebase = Number(stakingReward.toString()) / Number(circ.toString());
     //stakingRebase +=0.014;
     const fiveDayRate = Math.pow(1 + stakingRebase, 5 * 3) - 1;
@@ -122,6 +125,7 @@ export const loadAppDetails = createAsyncThunk(
       stakingRebase,
       marketCap,
       marketPrice,
+      ticketPrice,
       circSupply,
       totalSupply,
       // treasuryMarketValue,
@@ -158,6 +162,7 @@ export const findOrLoadMarketPrice = createAsyncThunk(
           loadMarketPrice({ networkID: networkID, provider: provider }),
         ).unwrap();
         marketPrice = originalPromiseResult?.marketPrice;
+        
       } catch (rejectedValueOrSerializedError) {
         // handle error here
         console.error("Returned a null response from dispatch(loadMarketPrice)");
@@ -169,19 +174,24 @@ export const findOrLoadMarketPrice = createAsyncThunk(
 );
 
 /**
- * - fetches the DOHM price from CoinGecko (via getTokenPrice)
- * - falls back to fetch marketPrice from dohm-dai contract
+ * - fetches the DOGE price from CoinGecko (via getTokenPrice)
+ * - falls back to fetch marketPrice from doge-dai contract
  * - updates the App.slice when it runs
  */
 const loadMarketPrice = createAsyncThunk("app/loadMarketPrice", async ({ networkID, provider }: IBaseAsyncThunk) => {
+  console.log("123");
   let marketPrice: number;
+  let ticketPrice: number;
   try {
     marketPrice = await getMarketPrice({ networkID, provider });
+    ticketPrice = await getTicketPrice({ networkID, provider });
+    ticketPrice = ticketPrice / Math.pow(10, 9);
     marketPrice = marketPrice / Math.pow(10, 9);
   } catch (e) {
     marketPrice = await getTokenPrice("olympus");
+    ticketPrice = 0;
   }
-  return { marketPrice };
+  return { marketPrice, ticketPrice };
 });
 
 interface IAppData {
@@ -191,6 +201,7 @@ interface IAppData {
   readonly fiveDayRate?: number;
   readonly marketCap: number;
   readonly marketPrice: number;
+  readonly ticketPrice: number;
   readonly stakingAPY?: number;
   readonly stakingRebase?: number;
   readonly stakingTVL: number;

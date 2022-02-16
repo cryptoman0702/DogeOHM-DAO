@@ -2,7 +2,7 @@ import { BigNumber, ethers } from "ethers";
 import { addresses } from "../constants";
 import { abi as PrizePool } from "../abi/33-together/PrizePoolAbi2.json";
 import { abi as AwardPool } from "../abi/33-together/AwardAbi2.json";
-import { abi as DohmSAbi } from "../abi/DOHMs.json";
+import { abi as DogeSAbi } from "../abi/DOGEs.json";
 
 /**
  * Calculates user's odds of winning based on their pool balance
@@ -73,7 +73,7 @@ export const poolTogetherUILinks = (chainID: number): Array<string> => {
     ];
   } else {
     return [
-      `https://app.pooltogether.com/pools/mainnet/DOHMs`,
+      `https://app.pooltogether.com/pools/mainnet/DOGEs`,
       `https://community.pooltogether.com/pools/mainnet/${contractAddress}/manage#stats`,
     ];
   }

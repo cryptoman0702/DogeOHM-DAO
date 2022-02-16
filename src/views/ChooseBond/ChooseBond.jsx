@@ -17,7 +17,7 @@ import {
 import { t, Trans } from "@lingui/macro";
 import { BondDataCard, BondTableData } from "./BondRow";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { formatCurrency } from "../../helpers";
+import { formatCurrency, trim } from "../../helpers";
 import useBonds from "../../hooks/Bonds";
 import { useWeb3Context } from "src/hooks/web3Context";
 
@@ -49,6 +49,10 @@ function ChooseBond() {
   const marketPrice = useSelector(state => {
     return state.app.marketPrice;
   });
+  const ticketPrice = useSelector(state => {
+    return state.app.ticketPrice;
+  });
+
 
   const treasuryBalance = useSelector(state => {
     if (state.bonding.loading == false) {
@@ -67,7 +71,7 @@ function ChooseBond() {
       {!isAccountLoading && !isEmpty(accountBonds) && <ClaimBonds activeBonds={accountBonds} />}
 
       <Zoom in={true}>
-        <Paper className="dohm-card">
+        <Paper className="doge-card">
           <Box className="card-header">
             <Typography variant="h5" data-testid="t">
               <Trans>Bond</Trans> (1,1)
@@ -75,7 +79,7 @@ function ChooseBond() {
           </Box>
 
           <Grid container item xs={12} style={{ margin: "10px 0px 20px" }} className="bond-hero">
-            <Grid item xs={6}>
+            <Grid item xs={4}>
               <Box textAlign={`${isVerySmallScreen ? "left" : "center"}`}>
                 <Typography variant="h5" color="textSecondary">
                   <Trans>Treasury Balance</Trans>
@@ -97,13 +101,23 @@ function ChooseBond() {
               </Box>
             </Grid>
 
-            <Grid item xs={6} className={`dohm-price`}>
+            <Grid item xs={4} className={`doge-price`}>
               <Box textAlign={`${isVerySmallScreen ? "right" : "center"}`}>
                 <Typography variant="h5" color="textSecondary">
-                  <Trans>DOHM Price</Trans>
+                  <Trans>DOGE Price</Trans>
                 </Typography>
                 <Typography variant="h4">
                   {isAppLoading ? <Skeleton width="100px" /> : formatCurrency(marketPrice, 2)}
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={4} className={`doge-price`}>
+              <Box textAlign={`${isVerySmallScreen ? "right" : "center"}`}>
+                <Typography variant="h5" color="textSecondary">
+                  <Trans>Ticket Price</Trans>
+                </Typography>
+                <Typography variant="h4">
+                  {isAppLoading ? <Skeleton width="100px" /> : (trim(ticketPrice,2) + " DOGE")}
                 </Typography>
               </Box>
             </Grid>
@@ -143,7 +157,7 @@ function ChooseBond() {
       </Zoom>
 
       {isSmallScreen && (
-        <Box className="dohm-card-container">
+        <Box className="doge-card-container">
           <Grid container item spacing={2}>
             {bonds.map(bond => (
               <Grid item xs={12} key={bond.name}>

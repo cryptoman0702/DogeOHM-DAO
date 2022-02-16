@@ -51,7 +51,7 @@ function Bond({ bond }) {
       <Grid container id="bond-view">
         <Backdrop open={true}>
           <Fade in={true}>
-            <Paper className="dohm-card dohm-modal">
+            <Paper className="doge-card doge-modal">
               <BondHeader
                 bond={bond}
                 slippage={slippage}

@@ -3,7 +3,7 @@
     {
       "inputs": [
         { "internalType": "address", "name": "_LPToken", "type": "address" },
-        { "internalType": "address", "name": "_DOHMToken", "type": "address" },
+        { "internalType": "address", "name": "_DOGEToken", "type": "address" },
         { "internalType": "address", "name": "_rewardPool", "type": "address" },
         { "internalType": "uint256", "name": "_rewardPerBlock", "type": "uint256" },
         { "internalType": "uint256", "name": "_blocksToWait", "type": "uint256" }
@@ -71,14 +71,14 @@
     },
     {
       "inputs": [],
-      "name": "DOHMToken",
+      "name": "DOGEToken",
       "outputs": [{ "internalType": "contract IERC20", "name": "", "type": "address" }],
       "stateMutability": "view",
       "type": "function"
     },
     {
       "inputs": [],
-      "name": "accDOHMPerShare",
+      "name": "accDOGEPerShare",
       "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
       "stateMutability": "view",
       "type": "function"

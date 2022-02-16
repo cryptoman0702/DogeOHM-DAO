@@ -4,20 +4,20 @@ import { NavLink } from "react-router-dom";
 import { Link, SvgIcon, Popper, Button, Paper, Typography, Divider, Box, Fade, Slide } from "@material-ui/core";
 import { ReactComponent as InfoIcon } from "../../assets/icons/info-fill.svg";
 import { ReactComponent as ArrowUpIcon } from "../../assets/icons/arrow-up.svg";
-import { ReactComponent as DohmsTokenImg } from "../../assets/tokens/token_DOHMs.svg";
-import { ReactComponent as wDohmsTokenImg } from "../../assets/tokens/token_wDOHMs.svg";
-import { ReactComponent as dohmTokenImg } from "../../assets/tokens/token_DOHM.svg";
+import { ReactComponent as DogesTokenImg } from "../../assets/tokens/token_DOGEs.svg";
+import { ReactComponent as wDogesTokenImg } from "../../assets/tokens/token_wDOGEs.svg";
+import { ReactComponent as dogeTokenImg } from "../../assets/tokens/token_DOGE.svg";
 import { ReactComponent as t33TokenImg } from "../../assets/tokens/token_33T.svg";
-import { ReactComponent as DogeImg } from "../../assets/Doge_Dark.svg";
+//import { ReactComponent as DogeImg } from "../../assets/Doge_Dark.svg";
 
-import "./dohmmenu.scss";
+import "./dogemenu.scss";
 import { dai, frax } from "src/helpers/AllBonds";
 import { Trans } from "@lingui/macro";
 import { useWeb3Context } from "../../hooks/web3Context";
 
-import DohmImg from "src/assets/tokens/token_DOHM.svg";
-import DohmSImg from "src/assets/tokens/token_DOHMs.svg";
-import WDohmsImg from "src/assets/tokens/token_wDOHMs.svg";
+import DogeImg from "src/assets/tokens/token_DOGE.svg";
+import DogeSImg from "src/assets/tokens/token_DOGEs.svg";
+import WDogesImg from "src/assets/tokens/token_wDOGEs.svg";
 import token33tImg from "src/assets/tokens/token_33T.svg";
 
 import { segmentUA } from "../../helpers/userAnalyticHelpers";
@@ -28,18 +28,18 @@ const addTokenToWallet = (tokenSymbol, tokenAddress, address) => async () => {
     let tokenPath;
     let tokenDecimals = TOKEN_DECIMALS;
     switch (tokenSymbol) {
-      case "DOHM":
-        tokenPath = DohmImg;
+      case "DOGE":
+        tokenPath = DogeImg;
         break;
       case "33T":
         tokenPath = token33tImg;
         break;
-      case "wDOHMs":
-        tokenPath = WDohmsImg;
+      case "wDOGEs":
+        tokenPath = WDogesImg;
         tokenDecimals = 18;
         break;
       default:
-        tokenPath = DohmSImg;
+        tokenPath = DogeSImg;
     }
     const imageURL = `${host}/${tokenPath}`;
 
@@ -68,23 +68,23 @@ const addTokenToWallet = (tokenSymbol, tokenAddress, address) => async () => {
   }
 };
 
-function DohmMenu() {
+function DogeMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
   const isEthereumAPIAvailable = window.ethereum;
   const { chainID, address } = useWeb3Context();
 
   const networkID = chainID;
 
-  // const DOHMS_ADDRESS = addresses[networkID].DOHMS_ADDRESS;
-  // const DOHM_ADDRESS = addresses[networkID].DOHM_ADDRESS;
+  // const DOGEs_ADDRESS = addresses[networkID].DOGEs_ADDRESS;
+  // const DOGE_ADDRESS = addresses[networkID].DOGE_ADDRESS;
   // const PT_TOKEN_ADDRESS = addresses[networkID].PT_TOKEN_ADDRESS;
-  // const WDOHMS_ADDRESS = addresses[networkID].WDOHMS_ADDRESS;
+  // const WDOGEs_ADDRESS = addresses[networkID].WDOGEs_ADDRESS;
   const handleClick = event => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
 
   const open = Boolean(anchorEl);
-  const id = "dohm-popper";
+  const id = "doge-popper";
   // const daiAddress = dai.getAddressForReserve(networkID);
   // const fraxAddress = frax.getAddressForReserve(networkID);
   return (
@@ -92,21 +92,21 @@ function DohmMenu() {
       component="div"
       onMouseEnter={e => handleClick(e)}
       onMouseLeave={e => handleClick(e)}
-      id="dohm-menu-button-hover"
+      id="doge-menu-button-hover"
     >
-      <Button id="dohm-menu-button" size="large" variant="contained" color="secondary" title="DOHM" aria-describedby={id}>
+      <Button id="doge-menu-button" size="large" variant="contained" color="secondary" title="DOGE" aria-describedby={id}>
         <SvgIcon component={InfoIcon} color="primary" />
-        <Typography>DOHM</Typography>
+        <Typography>DOGE</Typography>
       </Button>
 
       <Popper id={id} open={open} anchorEl={anchorEl} placement="bottom-start" transition>
         {({ TransitionProps }) => {
           return (
             <Fade {...TransitionProps} timeout={100}>
-              <Paper className="dohm-menu" elevation={1}>
+              <Paper className="doge-menu" elevation={1}>
                 <Box component="div" className="buy-tokens">
                   <Link
-                    // href={`https://swap.spiritswap.finance/#/exchange/swap?inputCurrency=${fraxAddress}&outputCurrency=${DOHM_ADDRESS}`}
+                    // href={`https://swap.spiritswap.finance/#/exchange/swap?inputCurrency=${fraxAddress}&outputCurrency=${DOGE_ADDRESS}`}
                     href={`https://pancakeswap.finance/swap?inputCurrency=0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E&outputCurrency=0x0083a5a7e25e0Ee5b94685091eb8d0A32DfF11D4`}
                     target="_blank"
                     rel="noreferrer"
@@ -126,46 +126,46 @@ function DohmMenu() {
                       <Trans>TOKEN COMING SOON</Trans>
                     </p>
                     <Box display="flex" flexDirection="row" justifyContent="space-between">
-                      {/*DOHM_ADDRESS && (
+                      {/*DOGE_ADDRESS && (
                         <Button
                           variant="contained"
                           color="secondary"
-                          onClick={addTokenToWallet("DOHM", DOHM_ADDRESS, address)}
+                          onClick={addTokenToWallet("DOGE", DOGE_ADDRESS, address)}
                         >
                           {<SvgIcon
-                            component={dohmTokenImg}
+                            component={dogeTokenImg}
                             viewBox="0 0 32 32"
                             style={{ height: "25px", width: "25px" }}
                           />}
-                          <Typography variant="body1">DOHM</Typography>
+                          <Typography variant="body1">DOGE</Typography>
                         </Button>
                       ) */}
-                      {/*DOHMS_ADDRESS && (
+                      {/*DOGEs_ADDRESS && (
                         <Button
                           variant="contained"
                           color="secondary"
-                          onClick={addTokenToWallet("DOHMs", DOHMS_ADDRESS, address)}
+                          onClick={addTokenToWallet("DOGEs", DOGEs_ADDRESS, address)}
                         >
                           {<SvgIcon
-                            component={dohmTokenImg}
+                            component={dogeTokenImg}
                             viewBox="0 0 100 100"
                             style={{ height: "25px", width: "25px" }}
                           />}
                           <Typography variant="body1">Doge</Typography>
                         </Button>
                       ) */}
-                      {/* {WDOHMS_ADDRESS && (
+                      {/* {WDOGEs_ADDRESS && (
                         <Button
                           variant="contained"
                           color="secondary"
-                          onClick={addTokenToWallet("wDOHMs", WDOHMS_ADDRESS, address)}
+                          onClick={addTokenToWallet("wDOGEs", WDOGEs_ADDRESS, address)}
                         >
                           <SvgIcon
-                            component={wDohmsTokenImg}
+                            component={wDogesTokenImg}
                             viewBox="0 0 180 180"
                             style={{ height: "25px", width: "25px" }}
                           />
-                          <Typography variant="body1">wDOHMs</Typography>
+                          <Typography variant="body1">wDOGEs</Typography>
                         </Button>
                       )} */}
                       {/* {PT_TOKEN_ADDRESS && (
@@ -194,4 +194,4 @@ function DohmMenu() {
   );
 }
 
-export default DohmMenu;
+export default DogeMenu;

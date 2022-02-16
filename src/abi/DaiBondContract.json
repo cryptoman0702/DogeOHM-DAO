@@ -3,11 +3,11 @@
     {
       "inputs": [
         { "internalType": "address", "name": "DAI_", "type": "address" },
-        { "internalType": "address", "name": "DOHM_", "type": "address" },
+        { "internalType": "address", "name": "DOGE_", "type": "address" },
         { "internalType": "address", "name": "treasury_", "type": "address" },
         { "internalType": "address", "name": "stakingContract_", "type": "address" },
         { "internalType": "address", "name": "DAOWallet_", "type": "address" },
-        { "internalType": "address", "name": "circulatingDOHMContract_", "type": "address" }
+        { "internalType": "address", "name": "circulatingDOGEContract_", "type": "address" }
       ],
       "stateMutability": "nonpayable",
       "type": "constructor"
@@ -44,7 +44,7 @@
     },
     {
       "inputs": [],
-      "name": "DOHM",
+      "name": "DOGE",
       "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
       "stateMutability": "view",
       "type": "function"
@@ -86,7 +86,7 @@
     },
     {
       "inputs": [],
-      "name": "circulatingDOHMContract",
+      "name": "circulatingDOGEContract",
       "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
       "stateMutability": "view",
       "type": "function"

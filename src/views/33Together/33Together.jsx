@@ -53,12 +53,12 @@ const PoolTogether = () => {
   // TODO (appleseed-33T): create a table for AwardHistory
   const [yourAwardHistory, setYourAwardHistory] = useState([]);
   const [infoTooltipMessage, setInfoTooltipMessage] = useState([
-    "Deposit DOHMs to win! Once deposited, you will receive a corresponding amount of 33T and be entered to win until your DOHMs is withdrawn.",
+    "Deposit DOGEs to win! Once deposited, you will receive a corresponding amount of 33T and be entered to win until your DOGEs is withdrawn.",
   ]);
   const isAccountLoading = useSelector(state => state.account.loading ?? true);
 
-  const dohmsBalance = useSelector(state => {
-    return state.account.balances && state.account.balances.dohms;
+  const dogesBalance = useSelector(state => {
+    return state.account.balances && state.account.balances.doges;
   });
 
   const poolBalance = useSelector(state => {
@@ -145,7 +145,7 @@ const PoolTogether = () => {
     <div id="pool-together-view">
       <PoolPrize />
 
-      <Paper className="dohm-card">
+      <Paper className="doge-card">
         <Box display="flex">
           <CardHeader title={t`3, 3 Together`} />
           <InfoTooltipMulti messagesArray={infoTooltipMessage} />
@@ -185,7 +185,7 @@ const PoolTogether = () => {
         graphLoading={graphLoading}
         isAccountLoading={isAccountLoading}
         poolBalance={trim(poolBalance, 4)}
-        dohmsBalance={trim(dohmsBalance, 4)}
+        dogesBalance={trim(dogesBalance, 4)}
         yourTotalAwards={trim(yourTotalAwards, 4)}
         yourOdds={trim(yourOdds, 0)}
         winners={winners}

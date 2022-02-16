@@ -5,6 +5,12 @@ import externalUrls from "./externalUrls";
 import { ReactComponent as StakeIcon } from "../../assets/icons/stake.svg";
 import { ReactComponent as BondIcon } from "../../assets/icons/bond.svg";
 import { ReactComponent as DashboardIcon } from "../../assets/icons/dashboard.svg";
+import { ReactComponent as HomeIcon } from "../../assets/icons/home.svg";
+import { ReactComponent as LotteriesIcon } from "../../assets/icons/lotteries.svg";
+import { ReactComponent as CasinoIcon } from "../../assets/icons/casino.svg";
+import { ReactComponent as NFTSIcon } from "../../assets/icons/NFTS.svg";
+import { ReactComponent as AirdropIcon } from "../../assets/icons/airdrop.svg";
+
 import { ReactComponent as SaleIcon } from "../../assets/icons/coin.svg";
 import logo from "../../assets/Doge_Dark.png";
 import { Trans } from "@lingui/macro";
@@ -23,6 +29,9 @@ function NavContent() {
 
   const checkPage = useCallback((match, location, page) => {
     const currentPath = location.pathname.replace("/", "");
+    // if (currentPath.indexOf("home") >= 0 && page === "home") {
+    //   return true;
+    // }
     if (currentPath.indexOf("dashboard") >= 0 && page === "dashboard") {
       return true;
     }
@@ -30,6 +39,18 @@ function NavContent() {
       return true;
     }
     if ((currentPath.indexOf("bonds") >= 0 || currentPath.indexOf("choose_bond") >= 0) && page === "bonds") {
+      return true;
+    }
+    if (currentPath.indexOf("casino") >= 0 && page === "casino") {
+      return true;
+    }
+    if (currentPath.indexOf("NFTS") >= 0 && page === "NFTS") {
+      return true;
+    }
+    if (currentPath.indexOf("airdrop") >= 0 && page === "airdrop") {
+      return true;
+    }
+    if (currentPath.indexOf("lotteries") >= 0 && page === "lotteries") {
       return true;
     }
     if (currentPath.indexOf("presale") >= 0 && page === "presale") {
@@ -57,6 +78,20 @@ function NavContent() {
           </Box>
           <div className="dapp-menu-links">
             <div className="dapp-nav" id="navbarNav">
+               {/* <Link
+                component={NavLink}
+                id="home-nav"
+                to="/home"
+                isActive={(match, location) => {
+                  return checkPage(match, location, "home");
+                }}
+                className={`button-dapp-menu ${isActive ? "active" : ""}`}
+              >
+                <Typography variant="h6" >
+                  <SvgIcon component={HomeIcon} />
+                  <Trans>Home</Trans>
+                </Typography>
+              </Link> */}
               <Link
                 component={NavLink}
                 id="dash-nav"
@@ -66,8 +101,8 @@ function NavContent() {
                 }}
                 className={`button-dapp-menu ${isActive ? "active" : ""}`}
               >
-                <Typography variant="h6">
-                  <SvgIcon color="primary" component={DashboardIcon} />
+                <Typography variant="h6" >
+                  <SvgIcon component={DashboardIcon} />
                   <Trans>Dashboard</Trans>
                 </Typography>
               </Link>
@@ -81,7 +116,7 @@ function NavContent() {
                 className={`button-dapp-menu ${isActive ? "active" : ""}`}
               >
                 <Typography variant="h6">
-                  <SvgIcon color="primary" component={StakeIcon} />
+                  <SvgIcon component={StakeIcon} />
                   <Trans>Stake</Trans>
                 </Typography>
               </Link>
@@ -95,11 +130,11 @@ function NavContent() {
                 className={`button-dapp-menu ${isActive ? "active" : ""}`}
               >
                 <Typography variant="h6">
-                  <SvgIcon color="primary" component={BondIcon} />
+                  <SvgIcon component={BondIcon} />
                   <Trans>Bond</Trans>
                 </Typography>
               </Link>
-              {/* <div className="dapp-menu-data discounts">
+              <div className="dapp-menu-data discounts">
                 <div className="bond-discounts">
                   <Typography variant="body2">
                     <Trans>Bond discounts</Trans>
@@ -122,8 +157,64 @@ function NavContent() {
                     </Link>
                   ))}
                 </div>
-              </div>  */}
+              </div>
               <Link
+                component={NavLink}
+                id="dash-nav"
+                to="/casino"
+                isActive={(match, location) => {
+                  return checkPage(match, location, "casino");
+                }}
+                className={`button-dapp-menu ${isActive ? "active" : ""}`}
+              >
+                <Typography variant="h6" >
+                  <SvgIcon component={CasinoIcon} />
+                  <Trans>Casino (comming)</Trans>
+                </Typography>
+              </Link>
+              <Link
+                component={NavLink}
+                id="dash-nav"
+                to="/NFTS"
+                isActive={(match, location) => {
+                  return checkPage(match, location, "NFTS");
+                }}
+                className={`button-dapp-menu ${isActive ? "active" : ""}`}
+              >
+                <Typography variant="h6" >
+                  <SvgIcon component={NFTSIcon} />
+                  <Trans>NFTS (comming)</Trans>
+                </Typography>
+              </Link>
+              {/* <Link
+                component={NavLink}
+                id="dash-nav"
+                to="/airdrop"
+                isActive={(match, location) => {
+                  return checkPage(match, location, "airdrop");
+                }}
+                className={`button-dapp-menu ${isActive ? "active" : ""}`}
+              >
+                <Typography variant="h6" >
+                  <SvgIcon component={AirdropIcon} />
+                  <Trans>Airdrop</Trans>
+                </Typography>
+              </Link> */}
+              <Link
+                component={NavLink}
+                id="dash-nav"
+                to="/lottery"
+                isActive={(match, location) => {
+                  return checkPage(match, location, "lotteries");
+                }}
+                className={`button-dapp-menu ${isActive ? "active" : ""}`}
+              >
+                <Typography variant="h6" >
+                  <SvgIcon component={LotteriesIcon} />
+                  <Trans>Lottery</Trans>
+                </Typography>
+              </Link>
+              {/* <Link
                 component={NavLink}
                 id="presale-nav"
                 to="/presale"
@@ -133,10 +224,10 @@ function NavContent() {
                 className={`button-dapp-menu ${isActive ? "active" : ""}`}
               >
                 <Typography variant="h6">
-                  <SvgIcon color="primary" component={SaleIcon} viewBox="0 0 64 64" />
+                  <SvgIcon component={SaleIcon} viewBox="0 0 64 64" />
                   <Trans>Presale</Trans>
                 </Typography>
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>

@@ -24,9 +24,9 @@ function alreadyApprovedToken(token: string, stakeAllowance: BigNumber, unstakeA
   let applicableAllowance = bigZero;
 
   // determine which allowance to check
-  if (token === "dohm") {
+  if (token === "doge") {
     applicableAllowance = stakeAllowance;
-  } else if (token === "dohms") {
+  } else if (token === "doges") {
     applicableAllowance = unstakeAllowance;
   }
 
@@ -45,11 +45,11 @@ export const changeApproval = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const dohmContract = new ethers.Contract(addresses[networkID].DOHM_ADDRESS as string, ierc20ABI, signer);
-    const dohmsContract = new ethers.Contract(addresses[networkID].DOHMS_ADDRESS as string, ierc20ABI, signer);
+    const dogeContract = new ethers.Contract(addresses[networkID].DOGE_ADDRESS as string, ierc20ABI, signer);
+    const dogesContract = new ethers.Contract(addresses[networkID].DOGEs_ADDRESS as string, ierc20ABI, signer);
     let approveTx;
-    let stakeAllowance = await dohmContract.allowance(address, addresses[networkID].STAKING_HELPER_ADDRESS);
-    let unstakeAllowance = await dohmsContract.allowance(address, addresses[networkID].STAKING_ADDRESS);
+    let stakeAllowance = await dogeContract.allowance(address, addresses[networkID].STAKING_HELPER_ADDRESS);
+    let unstakeAllowance = await dogesContract.allowance(address, addresses[networkID].STAKING_ADDRESS);
     console.log("1",stakeAllowance);
     // return early if approval has already happened
     if (alreadyApprovedToken(token, stakeAllowance, unstakeAllowance)) {
@@ -57,30 +57,30 @@ export const changeApproval = createAsyncThunk(
       return dispatch(
         fetchAccountSuccess({
           staking: {
-            dohmStake: +stakeAllowance,
-            dohmUnstake: +unstakeAllowance,
+            dogeStake: +stakeAllowance,
+            dogeUnstake: +unstakeAllowance,
           },
         }),
       );
     }
 
     try {
-      if (token === "dohm") {
+      if (token === "doge") {
         // won't run if stakeAllowance > 0
         console.log("2",ethers.utils.parseUnits("1000000000", "gwei").toString());
-        approveTx = await dohmContract.approve(
+        approveTx = await dogeContract.approve(
           addresses[networkID].STAKING_HELPER_ADDRESS,
           ethers.utils.parseUnits("1000000000", "gwei").toString(),
         );
-      } else if (token === "dohms") {
-        approveTx = await dohmsContract.approve(
+      } else if (token === "doges") {
+        approveTx = await dogesContract.approve(
           addresses[networkID].STAKING_ADDRESS,
           ethers.utils.parseUnits("1000000000", "gwei").toString(),
         );
       }
 
-      const text = "Approve " + (token === "dohm" ? "Staking" : "Unstaking");
-      const pendingTxnType = token === "dohm" ? "approve_staking" : "approve_unstaking";
+      const text = "Approve " + (token === "doge" ? "Staking" : "Unstaking");
+      const pendingTxnType = token === "doge" ? "approve_staking" : "approve_unstaking";
       if (approveTx) {
         dispatch(fetchPendingTxns({ txnHash: approveTx.hash, text, type: pendingTxnType }));
 
@@ -96,14 +96,14 @@ export const changeApproval = createAsyncThunk(
     }
 
     // go get fresh allowances
-    stakeAllowance = await dohmContract.allowance(address, addresses[networkID].STAKING_HELPER_ADDRESS);
-    unstakeAllowance = await dohmsContract.allowance(address, addresses[networkID].STAKING_ADDRESS);
+    stakeAllowance = await dogeContract.allowance(address, addresses[networkID].STAKING_HELPER_ADDRESS);
+    unstakeAllowance = await dogesContract.allowance(address, addresses[networkID].STAKING_ADDRESS);
 
     return dispatch(
       fetchAccountSuccess({
         staking: {
-          dohmStake: +stakeAllowance,
-          dohmUnstake: +unstakeAllowance,
+          dogeStake: +stakeAllowance,
+          dogeUnstake: +unstakeAllowance,
         },
       }),
     );

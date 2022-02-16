@@ -52,7 +52,7 @@ export function PublicPresaleCard(props) {
     };
   }, [timeRemaining, address]);
   return (
-    <Card className="dohm-card">
+    <Card className="doge-card">
       <Box display="flex">
         <CardHeader title={title} />
       </Box>
@@ -140,11 +140,9 @@ export function PublicPresaleCard(props) {
         </span>
       </div>
       <div className="card-layout" />
-      <div className="card-layout" />
-      <div className="card-layout" />
       <div className="card-layout">
         <span>Conversion Rate:</span>
-        <span className="span-colour">125 BUSD : 1 DOHM</span>
+        <span className="span-colour">125 BUSD : 1 DOGE</span>
       </div>
       <Link to={whitelist} style={{ textDecoration: "none" }}>
         <Button variant="outlined" color="secondary" className="view-button">

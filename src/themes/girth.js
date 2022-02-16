@@ -69,10 +69,10 @@ export const girth = responsiveFontSizes(
         },
         MuiPaper: {
           root: {
-            "&.dohm-menu": {
+            "&.doge-menu": {
               backgroundColor: girthTheme.menuBg,
             },
-            "&.dohm-modal": {
+            "&.doge-modal": {
               backgroundColor: girthTheme.menuBg,
             },
           },

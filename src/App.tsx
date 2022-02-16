@@ -12,7 +12,7 @@ import useSegmentAnalytics from "./hooks/useSegmentAnalytics";
 import { segmentUA } from "./helpers/userAnalyticHelpers";
 import { shouldTriggerSafetyCheck } from "./helpers";
 import { css } from "@emotion/react";
-import { PuffLoader } from "react-spinners";
+import MoonLoader from "react-spinners/MoonLoader";
 import { AnimatePresence } from "framer-motion";
 
 import { calcBondDetails } from "./slices/BondSlice";
@@ -20,7 +20,7 @@ import { loadAppDetails } from "./slices/AppSlice";
 import { loadAccountDetails, calculateUserBondDetails } from "./slices/AccountSlice";
 import { info } from "./slices/MessagesSlice";
 
-import { Stake, ChooseBond, Bond, Wrap, TreasuryDashboard } from "./views";
+import { Stake, ChooseBond, Bond, Wrap, TreasuryDashboard,Home } from "./views";
 import Sidebar from "./components/Sidebar/Sidebar.jsx";
 import TopBar from "./components/TopBar/TopBar.jsx";
 import NavDrawer from "./components/Sidebar/NavDrawer.jsx";
@@ -36,6 +36,7 @@ import "./style.scss";
 import { useGoogleAnalytics } from "./hooks/useGoogleAnalytics";
 import "./lightning.css";
 import PublicPresale from "./views/Whitelists/PublicPresale";
+import Lottery from "./views/Lottery/Lottery";
 
 // 😬 Sorry for all the console logging
 const DEBUG = false;
@@ -57,7 +58,7 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(1),
+    padding: theme.spacing(5),
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: transitionDuration,
@@ -179,7 +180,7 @@ function App() {
       setWalletChecked(true);
     }
     if (shouldTriggerSafetyCheck()) {
-      dispatch(info("Safety Check: Always verify you're on dogeohmdao.com!"));
+      dispatch(info("Safety Check: Always verify you're on vaultprotocoldao.com!"));
     }
   }, []);
 
@@ -221,7 +222,7 @@ function App() {
     <ThemeProvider theme={themeMode}>
       <CssBaseline />
       {loading ? (
-        <PuffLoader color={"#2298E0"} loading={loading} size={200} css={override} />
+        <MoonLoader color={"#2298E0"} loading={loading} size={100} css={override} />
       ) : (
         //  {isAppLoading && <LoadingSplash />}
         <div className={`app ${isSmallerScreen && "tablet"} ${isSmallScreen && "mobile"} ${theme}`}>
@@ -238,6 +239,9 @@ function App() {
           <div className={`${classes.content} ${isSmallerScreen && classes.contentShift}`}>
             <AnimatePresence exitBeforeEnter initial={false}>
               <Switch location={location} key={location.pathname}>
+                {/* <Route exact path="/home">
+                  <Home />
+                </Route> */}
                 <Route exact path="/dashboard">
                   <TreasuryDashboard />
                 </Route>
@@ -254,7 +258,7 @@ function App() {
                   <Wrap />
                 </Route>
 
-                {/* <Route path="/bonds">
+                <Route path="/bonds">
                   {bonds.map(bond => {
                     return (
                       <Route exact key={bond.name} path={`/bonds/${bond.name}`}>
@@ -263,9 +267,9 @@ function App() {
                     );
                   })}
                   <ChooseBond />
-                </Route>   */}
-                <Route path="/presale">
-                  {/* <div className="lightning flashit"></div>  */}
+                </Route>
+                {/* <Route path="/presale">
+                  { <div className="lightning flashit"></div>  }
                   <Presale />
                 </Route>
                 <Route path="/ogwhitelist">
@@ -276,6 +280,9 @@ function App() {
                 </Route>
                 <Route path="/public">
                   <PublicPresale />
+                </Route> */}
+                <Route path="/lottery">
+                  <Lottery />
                 </Route>
                 <Route component={NotFound} />
               </Switch>

@@ -9,12 +9,12 @@
       background: rgba(100, 100, 100, 0.1) !important;
       backdrop-filter: blur(33px) !important;
       -webkit-backdrop-filter: blur(33px) !important;
-      .dohm-card {
+      .doge-card {
         opacity: 1 !important;
         height: auto;
       }
     }
-    .dohm-modal {
+    .doge-modal {
       max-width: 688px;
       min-height: 605px;
     }
@@ -24,26 +24,29 @@
   @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
     .MuiBackdrop-root {
       background: rgba(100, 100, 100, 0.95);
-      .dohm-card {
+      .doge-card {
         height: auto;
       }
     }
-    .dohm-modal {
+    .doge-modal {
       max-width: 688px;
       min-height: 605px;
       opacity: 0.9;
     }
   }
   
-  .dohm-card {
+  .doge-card {
     max-width: 803px;
+  }
+  .cancel-bond {
+    background-color: #FFFFFF00;
   }
 
   .bond-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .dohm-pair-img,
+    .doge-pair-img,
     .reserve-pair-img {
       height: 38px;
       width: 38px;
@@ -78,7 +81,7 @@
     }
   }
 
-  .dohm-input {
+  .doge-input {
     min-width: 50%;
     max-width: 408px;
     margin: 5px;
@@ -93,7 +96,7 @@
 }
 
 .mobile #bond-view {
-  .dohm-card {
+  .doge-card {
     .card-content {
       justify-content: space-evenly !important;
       .bond-toggle-row {
@@ -105,7 +108,7 @@
         justify-content: center;
         align-items: center;
         align-content: center;
-        .input-group.dohm-input-group {
+        .input-group.doge-input-group {
           margin: 10px !important;
           width: 75%;
           height: 50px;

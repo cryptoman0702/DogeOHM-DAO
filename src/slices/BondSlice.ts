@@ -7,6 +7,8 @@ import { clearPendingTxn, fetchPendingTxns } from "./PendingTxnsSlice";
 import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit";
 import { getBondCalculator } from "src/helpers/BondCalculator";
 import { RootState } from "src/store";
+import { addresses } from "../constants";
+import { abi as TreasuryContractABI } from "../abi/TreasuryContract.json";
 import {
   IApproveBondAsyncThunk,
   IBondAssetAsyncThunk,
@@ -65,6 +67,7 @@ export interface IBondDetails {
   bondDiscount: number;
   debtRatio: number;
   bondQuote: number;
+  ticketReturn: number;
   purchased: number;
   vestingTerm: number;
   maxBondPrice: number;
@@ -82,7 +85,8 @@ export const calcBondDetails = createAsyncThunk(
     let bondPrice = BigNumber.from(0),
       bondDiscount = 0,
       valuation = 0,
-      bondQuote: BigNumberish = BigNumber.from(0);
+      bondQuote: BigNumberish = BigNumber.from(0),
+      ticketReturn: BigNumberish = BigNumber.from(0);
     const bondContract = bond.getContractForBond(networkID, provider);
     const bondCalcContract = getBondCalculator(networkID, provider);
 
@@ -117,21 +121,22 @@ export const calcBondDetails = createAsyncThunk(
       } else {
         bondPrice = await bondContract.bondPriceInUSD();
       }
-      console.log("bondPrice", bondPrice);
       bondDiscount = (marketPrice * Math.pow(10, 18) - Number(bondPrice.toString())) / Number(bondPrice.toString()); // 1 - bondPrice / (bondPrice * Math.pow(10, 9));
-      console.log("bondDiscount",bondDiscount);
+      
     } catch (e) {
       console.log("error getting bondPriceInUSD", e);
     }
-
+    
     if (Number(value) === 0) {
       // if inputValue is 0 avoid the bondQuote calls
       bondQuote = BigNumber.from(0);
+      ticketReturn = BigNumber.from(0);
     } else if (bond.isLP) {
       valuation = Number(
         (await bondCalcContract.valuation(bond.getAddressForReserve(networkID), amountInWei)).toString(),
       );
       bondQuote = await bondContract.payoutFor(valuation);
+
       if (!amountInWei.isZero() && Number(bondQuote.toString()) < 100000) {
         bondQuote = BigNumber.from(0);
         const errorString = "Amount is too small!";
@@ -142,7 +147,6 @@ export const calcBondDetails = createAsyncThunk(
     } else {
       // RFV = DAI
       bondQuote = await bondContract.payoutFor(amountInWei);
-
       if (!amountInWei.isZero() && Number(bondQuote.toString()) < 100000000000000) {
         bondQuote = BigNumber.from(0);
         const errorString = "Amount is too small!";
@@ -151,13 +155,17 @@ export const calcBondDetails = createAsyncThunk(
         bondQuote = Number(bondQuote.toString()) / Math.pow(10, 18);
       }
     }
-
+    const treasuryContract =  new ethers.Contract(addresses[networkID].TREASURY_ADDRESS, TreasuryContractABI, provider.getSigner());
+    const ticketPrice = await treasuryContract.ticketPrice(); // ychm ticket return amount calc
+    ticketReturn = Number(bondQuote)* 1000000000 / ticketPrice;
+    
+    console.log(ticketReturn,bondQuote);
     // Display error if user tries to exceed maximum.
     if (!!value && parseFloat(bondQuote.toString()) > Number(maxBondPrice.toString()) / Math.pow(10, 9)) {
       const errorString =
         "You're trying to bond more than the maximum payout available! The maximum bond payout is " +
         (Number(maxBondPrice.toString()) / Math.pow(10, 9)).toFixed(2).toString() +
-        " DOHM.";
+        " DOGE.";
       dispatch(error(errorString));
     }
 
@@ -169,6 +177,7 @@ export const calcBondDetails = createAsyncThunk(
       bondDiscount,
       debtRatio: Number(debtRatio.toString()),
       bondQuote: Number(bondQuote.toString()),
+      ticketReturn: Number(ticketReturn.toString()),
       purchased,
       vestingTerm: Number(terms.vestingTerm.toString()),
       maxBondPrice: Number(maxBondPrice.toString()) / Math.pow(10, 9),
@@ -192,7 +201,7 @@ export const bondAsset = createAsyncThunk(
     const bondContract = bond.getContractForBond(networkID, signer);
     const calculatePremium = await bondContract.bondPrice();
     const maxPremium = Math.round(Number(calculatePremium.toString()) * (1 + acceptedSlippage));
-
+    console.log(123);
     // Deposit the bond
     let bondTx;
     let uaData = {
@@ -204,6 +213,7 @@ export const bondAsset = createAsyncThunk(
       txHash: "",
     };
     try {
+      console.log(valueInWei, maxPremium, depositorAddress);
       bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress);
       dispatch(
         fetchPendingTxns({ txnHash: bondTx.hash, text: "Bonding " + bond.displayName, type: "bond_" + bond.name }),
@@ -214,6 +224,7 @@ export const bondAsset = createAsyncThunk(
       // UX preference (show pending after txn complete or after balance updated)
 
       dispatch(calculateUserBondDetails({ address, bond, networkID, provider }));
+      console.log(124);
     } catch (e: unknown) {
       const rpcError = e as IJsonRPCError;
       if (rpcError.code === -32603 && rpcError.message.indexOf("ds-math-sub-underflow") >= 0) {

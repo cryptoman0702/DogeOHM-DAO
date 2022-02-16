@@ -39,7 +39,11 @@ body {
   transition: all ease 0.33ms;
 }
 
-.dohm-card {
+.MuiDrawer-paperAnchorDockedLeft {
+  border-right: 0 !important;
+}
+
+.doge-card {
   max-width: 833px;
   .card-header {
     width: 100%;
@@ -72,7 +76,7 @@ body {
   }
 }
 
-.dohm-pairs {
+.doge-pairs {
   display: flex;
   align-items: center;
 }

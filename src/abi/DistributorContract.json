@@ -10,7 +10,7 @@
     },
     {
       "inputs": [],
-      "name": "DOHM",
+      "name": "DOGE",
       "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
       "stateMutability": "view",
       "type": "function"
@@ -43,7 +43,7 @@
         { "internalType": "uint256", "name": "_rewardRate", "type": "uint256" },
         { "internalType": "address", "name": "_vault", "type": "address" },
         { "internalType": "address", "name": "_stakingContract", "type": "address" },
-        { "internalType": "address", "name": "_DOHM", "type": "address" },
+        { "internalType": "address", "name": "_DOGE", "type": "address" },
         { "internalType": "address", "name": "_DAI", "type": "address" }
       ],
       "name": "initialize",

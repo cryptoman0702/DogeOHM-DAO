@@ -1,5 +1,6 @@
 .dapp-topbar {
   width: 100%;
+  z-index: -1;
   align-items: center;
   button {
     white-space: nowrap !important;
@@ -25,8 +26,8 @@
     transition: all 0.33s ease-out;
   }
 }
-#dohm-popper-pending {
-  .MuiPaper-root.dohm-menu {
+#doge-popper-pending {
+  .MuiPaper-root.doge-menu {
     a {
       padding-right: 20px !important;
     }

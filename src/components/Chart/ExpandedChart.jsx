@@ -20,7 +20,7 @@ function ExpandedChart({
     <Modal open={open} onClose={handleClose}>
       <Backdrop open={true}>
         <Fade in={true}>
-          <Paper className="dohm-card dohm-popover">
+          <Paper className="doge-card doge-popover">
             <div className="chart-card-header">
               <Box display="flex">
                 <Box display="flex" alignItems="center" style={{ width: "max-content", whiteSpace: "nowrap" }}>

@@ -2,10 +2,17 @@
   overflow-y: hidden;
   overflow-x: hidden;
   height: 100%;
-  .dohm-card {
+  .doge-card {
+    display: flex;
+    align-items: center;
     white-space: nowrap;
     width: auto;
     margin: auto;
+    svg {
+      width: 30px;
+      height: 30px;
+      margin-right: 25px;
+    }
   }
 }
 

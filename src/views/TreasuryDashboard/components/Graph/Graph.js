@@ -37,11 +37,7 @@ export const MarketValueGraph = () => {
       type="stack"
       data={data}
       dataKey={[
-        "treasuryDaiMarketValue",
-        "treasuryFraxMarketValue",
-        "treasuryWETHMarketValue",
-        "treasuryXsushiMarketValue",
-        "treasuryLusdMarketValue",
+        "treasuryBUSDMarketValue",
       ]}
       stopColor={[
         ["#F5AC37", "#EA9276"],
@@ -70,7 +66,7 @@ export const RiskFreeValueGraph = () => {
       type="stack"
       data={data}
       format="currency"
-      dataKey={["treasuryDaiRiskFreeValue", "treasuryFraxRiskFreeValue", "treasuryLusdRiskFreeValue"]}
+      dataKey={["treasuryBUSDRiskFreeValue"]}
       stopColor={[
         ["#F5AC37", "#EA9276"],
         ["#768299", "#98B3E9"],
@@ -101,18 +97,18 @@ export const ProtocolOwnedLiquidityGraph = () => {
       dataFormat="percent"
       itemNames={tooltipItems.pol}
       itemType={itemType.percentage}
-      dataKey={["treasuryDohmDaiPOL"]}
+      dataKey={["treasuryDOGEBusdPOL"]}
       bulletpointColors={bulletpoints.pol}
       infoTooltipMessage={tooltipInfoMessages.pol}
-      headerText="Protocol Owned Liquidity DOHM-DAI"
+      headerText="Protocol Owned Liquidity DOGE-DAI"
       expandedGraphStrokeColor={theme.palette.graphStrokeColor}
-      headerSubText={`${data && trim(data[0].treasuryDohmDaiPOL, 2)}% `}
+      headerSubText={`${data && trim(data[0].treasuryDOGEBusdPOL, 2)}% `}
       stopColor={[["rgba(128, 204, 131, 1)", "rgba(128, 204, 131, 0)"]]}
     />
   );
 };
 
-export const DOHMStakedGraph = () => {
+export const DOGEstakedGraph = () => {
   const theme = useTheme();
   const { data } = useTreasuryMetrics({ refetchOnMount: false });
 
@@ -120,7 +116,7 @@ export const DOHMStakedGraph = () => {
     data &&
     data
       .map(metric => ({
-        staked: (metric.DohmsCirculatingSupply / metric.dohmCirculatingSupply) * 100,
+        staked: (metric.sDOGECirculatingSupply / metric.dogeCirculatingSupply) * 100,
         timestamp: metric.timestamp,
       }))
       .filter(metric => metric.staked < 100);
@@ -132,7 +128,7 @@ export const DOHMStakedGraph = () => {
       data={staked}
       dataKey={["staked"]}
       dataFormat="percent"
-      headerText="DOHM Staked"
+      headerText="DOGE Staked"
       stopColor={[["#55EBC7", "#47ACEB"]]}
       bulletpointColors={bulletpoints.staked}
       infoTooltipMessage={tooltipInfoMessages.staked}
@@ -145,7 +141,7 @@ export const DOHMStakedGraph = () => {
 export const APYOverTimeGraph = () => {
   const theme = useTheme();
   const { data } = useTreasuryRebases({ refetchOnMount: false });
-
+console.log("1231", data);
   let apy =
     data &&
     data
@@ -189,7 +185,7 @@ export const RunwayAvailableGraph = () => {
     <Chart
       type="multi"
       data={runway}
-      dataKey={["runwayCurrent", "runway7dot5k", "runway5k", "runway2dot5k"]}
+      dataKey={["runwayCurrent"]}
       color={theme.palette.text.primary}
       stroke={colors}
       headerText="Runway Available"

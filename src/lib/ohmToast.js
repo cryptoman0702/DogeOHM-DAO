@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function DohmSnackbar({ message, duration, severity }) {
+function DogeSnackbar({ message, duration, severity }) {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
 
@@ -40,17 +40,17 @@ function DohmSnackbar({ message, duration, severity }) {
   );
 }
 
-export const dohmToast = {
+export const dogeToast = {
   success: message => {
-    DohmSnackbar(message, null, "success");
+    DogeSnackbar(message, null, "success");
   },
   error: message => {
-    DohmSnackbar(message, null, "error");
+    DogeSnackbar(message, null, "error");
   },
   info: message => {
-    DohmSnackbar(message, null, "info");
+    DogeSnackbar(message, null, "info");
   },
   warn: message => {
-    DohmSnackbar(message, null, "warning");
+    DogeSnackbar(message, null, "warning");
   },
 };

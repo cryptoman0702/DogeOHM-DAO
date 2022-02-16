@@ -1,29 +1,29 @@
 import { StaticJsonRpcProvider } from "@ethersproject/providers";
 import { NetworkID } from "src/lib/Bond";
-import { dohm_lusd, lusd } from "../helpers/AllBonds";
-import { abi as DohmLusdCrucibleABI } from "src/abi/DohmLusdCrucible.json";
+import { doge_lusd, lusd } from "../helpers/AllBonds";
+import { abi as DogeLusdCrucibleABI } from "src/abi/DogeLusdCrucible.json";
 import { abi as UniswapIERC20ABI } from "src/abi/UniswapIERC20.json";
 import { BigNumber, ethers } from "ethers";
 import { addresses } from "src/constants";
 import { getTokenPrice } from "../helpers";
 
 export const calcAludelDetes = async (networkID: NetworkID, provider: StaticJsonRpcProvider) => {
-  const crucibleAddress = addresses[networkID].CRUCIBLE_DOHM_LUSD;
+  const crucibleAddress = addresses[networkID].CRUCIBLE_DOGE_LUSD;
   const aludelContract = new ethers.Contract(
     crucibleAddress as string,
-    DohmLusdCrucibleABI,
+    DogeLusdCrucibleABI,
     provider,
   );
   const aludelData = await aludelContract.getAludelData();
   // getting contractAddresses & Pricing for calculations below
-  let dohmPrice = await getTokenPrice("olympus");
-  let dohmContractAddress = addresses[networkID].DOHM_ADDRESS.toLowerCase();
+  let dogePrice = await getTokenPrice("olympus");
+  let dogeContractAddress = addresses[networkID].DOGE_ADDRESS.toLowerCase();
 
   let lusdPrice = await getTokenPrice("liquity-usd");
   let lusdContractAddress = lusd.getAddressForReserve(networkID).toLowerCase();
 
-  let dohmLusdPrice = await dohm_lusd.getBondReservePrice(networkID, provider);
-  let dohmLusdContractAddress = dohm_lusd.getAddressForReserve(networkID).toLowerCase();
+  let dogeLusdPrice = await doge_lusd.getBondReservePrice(networkID, provider);
+  let dogeLusdContractAddress = doge_lusd.getAddressForReserve(networkID).toLowerCase();
 
   let lqtyPrice = await getTokenPrice("liquity");
   let lqtyContractAddress = addresses[networkID].LQTY.toLowerCase();
@@ -33,8 +33,8 @@ export const calcAludelDetes = async (networkID: NetworkID, provider: StaticJson
 
   // set addresses & pricing in dictionary
   let usdValues: { [key: string]: number } = {};
-  usdValues[dohmContractAddress] = dohmPrice;
-  usdValues[dohmLusdContractAddress] = Number(dohmLusdPrice.toString());
+  usdValues[dogeContractAddress] = dogePrice;
+  usdValues[dogeLusdContractAddress] = Number(dogeLusdPrice.toString());
   usdValues[lqtyContractAddress] = lqtyPrice;
   usdValues[mistContractAddress] = mistPrice;
 
@@ -72,7 +72,7 @@ export const calcAludelDetes = async (networkID: NetworkID, provider: StaticJson
   // furthest start date for past funds
   let oldestDepositDate = Math.max.apply(null, pastDurations);
 
-  // rewardToken is DOHM for this Crucible
+  // rewardToken is DOGE for this Crucible
   const rewardTokenContract = new ethers.Contract(
     aludelData.rewardToken as string,
     UniswapIERC20ABI,
@@ -131,12 +131,12 @@ export const calcAludelDetes = async (networkID: NetworkID, provider: StaticJson
 
   let lusdContract = new ethers.Contract(lusdContractAddress, UniswapIERC20ABI, provider);
 
-  let stakedDohm =
+  let stakedDoge =
     Number((await rewardTokenContract.balanceOf(aludelData.stakingToken)).toString()) / 10 ** rewardTokenDecimals;
   // 18 decimals for LUSD
   let stakedLusd = Number((await lusdContract.balanceOf(aludelData.stakingToken)).toString()) / 10 ** 18;
 
-  let totalStakedTokensUsd = stakedDohm * dohmPrice + stakedLusd * lusdPrice;
+  let totalStakedTokensUsd = stakedDoge * dogePrice + stakedLusd * lusdPrice;
 
   let stakingTokenContract = new ethers.Contract(aludelData.stakingToken, UniswapIERC20ABI, provider);
   let sushiTokenSupply = Number((await stakingTokenContract.totalSupply()).toString()) / 10 ** 18;

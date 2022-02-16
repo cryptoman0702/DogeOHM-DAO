@@ -27,7 +27,7 @@ const darkTheme = {
   paperBg: "#0f1b2a6D", // ychm nav bar
   modalBg: "#24242699",
   popoverBg: "rgba(54, 56, 64, 0.99)",
-  menuBg: handleBackdropFilter("rgba(54, 56, 64, 0.5)"),
+  menuBg: handleBackdropFilter("rgba(54, 56, 64, 0.1)"),
   backdropBg: "rgba(54, 56, 64, 0.5)",
   largeTextColor: "#F4D092",
   activeLinkColor: "#F5DDB4",

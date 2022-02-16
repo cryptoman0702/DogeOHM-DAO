@@ -2,8 +2,8 @@
   "abi": [
     {
       "inputs": [
-        { "internalType": "address", "name": "_DOHM", "type": "address" },
-        { "internalType": "address", "name": "_DOHMs", "type": "address" },
+        { "internalType": "address", "name": "_DOGE", "type": "address" },
+        { "internalType": "address", "name": "_DOGEs", "type": "address" },
         { "internalType": "uint256", "name": "_epochLength", "type": "uint256" },
         { "internalType": "uint256", "name": "_firstEpochNumber", "type": "uint256" },
         { "internalType": "uint256", "name": "_firstEpochBlock", "type": "uint256" }
@@ -31,7 +31,7 @@
     },
     {
       "inputs": [],
-      "name": "DOHM",
+      "name": "DOGE",
       "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
       "stateMutability": "view",
       "type": "function"
@@ -117,7 +117,7 @@
     },
     {
       "inputs": [],
-      "name": "DOHMs",
+      "name": "DOGEs",
       "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
       "stateMutability": "view",
       "type": "function"

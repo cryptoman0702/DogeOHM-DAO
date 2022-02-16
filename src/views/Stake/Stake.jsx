@@ -20,7 +20,7 @@ import { t, Trans } from "@lingui/macro";
 import NewReleases from "@material-ui/icons/NewReleases";
 import RebaseTimer from "../../components/RebaseTimer/RebaseTimer";
 import TabPanel from "../../components/TabPanel";
-import { getDohmTokenImage, getTokenImage, trim } from "../../helpers";
+import { getDogeTokenImage, getTokenImage, trim } from "../../helpers";
 import { changeApproval, changeStake } from "../../slices/StakeThunk";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import "./stake.scss";
@@ -38,9 +38,25 @@ function a11yProps(index) {
   };
 }
 
-const DohmsImg = getTokenImage("dohms");
-const dohmImg = getDohmTokenImage(16, 16);
-
+const DogesImg = getTokenImage("doges");
+const dogeImg = getDogeTokenImage(16, 16);
+function toFixed(x) {
+  if (Math.abs(x) < 1.0) {
+    var e = parseInt(x.toString().split('e-')[1]);
+    if (e) {
+        x *= Math.pow(10,e-1);
+        x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
+    }
+  } else {
+    var e = parseInt(x.toString().split('+')[1]);
+    if (e > 20) {
+        e -= 20;
+        x /= Math.pow(10,e);
+        x += (new Array(e+1)).join('0');
+    }
+  }
+  return x;
+}
 function Stake() {
   const dispatch = useDispatch();
   const { provider, address, connected, connect, chainID } = useWeb3Context();
@@ -56,29 +72,29 @@ function Stake() {
   const fiveDayRate = useSelector(state => {
     return state.app.fiveDayRate;
   });
-  const dohmBalance = useSelector(state => {
-    return state.account.balances && state.account.balances.dohm;
+  const dogeBalance = useSelector(state => {
+    return state.account.balances && state.account.balances.doge;
   });
-  const oldDohmsBalance = useSelector(state => {
-    return state.account.balances && state.account.balances.olddohms;
+  const oldDogesBalance = useSelector(state => {
+    return state.account.balances && state.account.balances.olddoges;
   });
-  const dohmsBalance = useSelector(state => {
-    return state.account.balances && state.account.balances.dohms;
+  const dogesBalance = useSelector(state => {
+    return state.account.balances && state.account.balances.doges;
   });
-  const fdohmsBalance = useSelector(state => {
-    return state.account.balances && state.account.balances.fdohms;
+  const fdogesBalance = useSelector(state => {
+    return state.account.balances && state.account.balances.fdoges;
   });
-  const wdohmsBalance = useSelector(state => {
-    return state.account.balances && state.account.balances.wdohms;
+  const wdogesBalance = useSelector(state => {
+    return state.account.balances && state.account.balances.wdoges;
   });
-  const wdohmsAsDohms = useSelector(state => {
-    return state.account.balances && state.account.balances.wdohmsAsDohms;
+  const wdogesAsDoges = useSelector(state => {
+    return state.account.balances && state.account.balances.wdogesAsDoges;
   });
   const stakeAllowance = useSelector(state => {
-    return state.account.staking && state.account.staking.dohmStake;
+    return state.account.staking && state.account.staking.dogeStake;
   });
   const unstakeAllowance = useSelector(state => {
-    return state.account.staking && state.account.staking.dohmUnstake;
+    return state.account.staking && state.account.staking.dogeUnstake;
   });
   const stakingRebase = useSelector(state => {
     return state.app.stakingRebase;
@@ -95,9 +111,9 @@ function Stake() {
 
   const setMax = () => {
     if (view === 0) {
-      setQuantity(dohmBalance);
+      setQuantity(dogeBalance);
     } else {
-      setQuantity(dohmsBalance);
+      setQuantity(dogesBalance);
     }
   };
 
@@ -115,11 +131,11 @@ function Stake() {
     // 1st catch if quantity > balance
     let gweiValue = ethers.utils.parseUnits(quantity, "gwei");
 
-    if (action === "stake" && gweiValue.gt(ethers.utils.parseUnits(dohmBalance, "gwei"))) {
-      return dispatch(error(t`You cannot stake more than your DOHM balance.`));
+    if (action === "stake" && gweiValue.gt(ethers.utils.parseUnits(dogeBalance, "gwei"))) {
+      return dispatch(error(t`You cannot stake more than your DOGE balance.`));
     }
-    if (action === "unstake" && gweiValue.gt(ethers.utils.parseUnits(dohmsBalance, "gwei"))) {
-      return dispatch(error(t`You cannot unstake more than your DOHMs balance.`));
+    if (action === "unstake" && gweiValue.gt(ethers.utils.parseUnits(dogesBalance, "gwei"))) {
+      return dispatch(error(t`You cannot unstake more than your DOGEs balance.`));
     }
     
     await dispatch(changeStake({ address, action, value: quantity.toString(), provider, networkID: chainID }));
@@ -127,8 +143,8 @@ function Stake() {
   
   const hasAllowance = useCallback(
     token => {
-      if (token === "dohm") return stakeAllowance > 0;
-      if (token === "dohms") return unstakeAllowance > 0;
+      if (token === "doge") return stakeAllowance > 0;
+      if (token === "doges") return unstakeAllowance > 0;
       return 0;
     },
     [stakeAllowance, unstakeAllowance],
@@ -149,37 +165,43 @@ function Stake() {
   };
 
   const trimmedBalance = Number(
-    [dohmsBalance, fdohmsBalance, wdohmsAsDohms]
+    [dogesBalance, fdogesBalance, wdogesAsDoges]
       .filter(Boolean)
       .map(balance => Number(balance))
       .reduce((a, b) => a + b, 0)
       .toFixed(4),
   );
-  const trimmedStakingAPY = trim(stakingAPY * 100, 1);
+  
+  let trimmedStakingAPY = trim(stakingAPY * 100, 1);
+  if ( stakingAPY != undefined) {
+    trimmedStakingAPY = trim(toFixed(stakingAPY * 100), 1);
+    console.log("stakingAPY",toFixed(stakingAPY));
+  }
+  //console.log("trimmedStakingAPY", trimmedStakingAPY);
   const stakingRebasePercentage = trim(stakingRebase * 100, 4);
   const nextRewardValue = trim((stakingRebasePercentage / 100) * trimmedBalance, 4);
 
   return (
     <div id="stake-view">
       <Zoom in={true} onEntered={() => setZoomed(true)}>
-        <Paper className={`dohm-card`}>
+        <Paper className={`doge-card`}>
           <Grid container direction="column" spacing={2}>
             <Grid item>
               <div className="card-header">
                 <Typography variant="h5">Single Stake (3, 3)</Typography>
                 <RebaseTimer />
 
-                {address && oldDohmsBalance > 0.01 && (
+                {address && oldDogesBalance > 0.01 && (
                   <Link
-                    className="migrate-dohms-button"
+                    className="migrate-doges-button"
                     style={{ textDecoration: "none" }}
                     href="https://docs.olympusdao.finance/using-the-website/migrate"
-                    aria-label="migrate-dohms"
+                    aria-label="migrate-doges"
                     target="_blank"
                   >
                     <NewReleases viewBox="0 0 24 24" />
                     <Typography>
-                      <Trans>Migrate DOHMs!</Trans>
+                      <Trans>Migrate DOGEs!</Trans>
                     </Typography>
                   </Link>
                 )}
@@ -188,7 +210,7 @@ function Stake() {
 
             <Grid item>
               <div className="stake-top-metrics">
-                <Grid container spacing={2} alignItems="flex-end">
+                <Grid container spacing={2} alignItems="baseline">
                   <Grid item xs={12} sm={4} md={4} lg={4}>
                     <div className="stake-apy">
                       <Typography variant="h5" color="textSecondary">
@@ -196,8 +218,8 @@ function Stake() {
                       </Typography>
                       <Typography variant="h4">
                         {stakingAPY ? (
-                          <span data-testid="apy-value">
-                            {new Intl.NumberFormat("en-US").format(trimmedStakingAPY)}%
+                          <span style={{overflowWrap: "anywhere"}} data-testid="apy-value">
+                            {(trimmedStakingAPY)}%
                           </span>
                         ) : (
                           <Skeleton width="150px" data-testid="apy-loading" />
@@ -235,7 +257,7 @@ function Stake() {
                       </Typography>
                       <Typography variant="h4">
                         {currentIndex ? (
-                          <span data-testid="index-value">{trim(currentIndex, 1)} DOHM</span>
+                          <span data-testid="index-value">{trim(currentIndex, 1)} DOGE</span>
                         ) : (
                           <Skeleton width="150px" data-testid="index-loading" />
                         )}
@@ -253,7 +275,7 @@ function Stake() {
                     {modalButton}
                   </div>
                   <Typography variant="h6">
-                    <Trans>Connect your wallet to stake DOHM</Trans>
+                    <Trans>Connect your wallet to stake DOGE</Trans>
                   </Typography>
                 </div>
               ) : (
@@ -282,28 +304,28 @@ function Stake() {
                     </Tabs>
                     <Box className="stake-action-row " display="flex" alignItems="center">
                       {address && !isAllowanceDataLoading ? (
-                        (!hasAllowance("dohm") && view === 0) || (!hasAllowance("dohms") && view === 1) ? (
+                        (!hasAllowance("doge") && view === 0) || (!hasAllowance("doges") && view === 1) ? (
                           <Box className="help-text">
                             <Typography variant="body1" className="stake-note" color="textSecondary">
                               {view === 0 ? (
                                 <>
-                                  <Trans>First time staking</Trans> <b>DOHM</b>?
+                                  <Trans>First time staking</Trans> <b>DOGE</b>?
                                   <br />
-                                  <Trans>Please approve Doge Dao to use your</Trans> <b>DOHM</b>{" "}
+                                  <Trans>Please approve DOGE to use your</Trans> <b>DOGE</b>{" "}
                                   <Trans>for staking</Trans>.
                                 </>
                               ) : (
                                 <>
-                                  <Trans>First time unstaking</Trans> <b>DOHMs</b>?
+                                  <Trans>First time unstaking</Trans> <b>DOGEs</b>?
                                   <br />
-                                  <Trans>Please approve Doge Dao to use your</Trans> <b>DOHMs</b>{" "}
+                                  <Trans>Please approve DOGE to use your</Trans> <b>DOGEs</b>{" "}
                                   <Trans>for unstaking</Trans>.
                                 </>
                               )}
                             </Typography>
                           </Box>
                         ) : (
-                          <FormControl className="dohm-input" variant="outlined" color="primary">
+                          <FormControl className="doge-input" variant="outlined" color="primary">
                             <InputLabel htmlFor="amount-input"></InputLabel>
                             <OutlinedInput
                               id="amount-input"
@@ -330,7 +352,7 @@ function Stake() {
                       <TabPanel value={view} index={0} className="stake-tab-panel">
                         {isAllowanceDataLoading ? (
                           <Skeleton />
-                        ) : address && hasAllowance("dohm") ? (
+                        ) : address && hasAllowance("doge") ? (
                           <Button
                             className="stake-button"
                             variant="contained"
@@ -340,7 +362,7 @@ function Stake() {
                               onChangeStake("stake");
                             }}
                           >
-                            {txnButtonText(pendingTransactions, "staking", t`Stake DOHM`)}
+                            {txnButtonText(pendingTransactions, "staking", t`Stake DOGE`)}
                           </Button>
                         ) : (
                           <Button
@@ -349,7 +371,7 @@ function Stake() {
                             color="primary"
                             disabled={isPendingTxn(pendingTransactions, "approve_staking")}
                             onClick={() => {
-                              onSeekApproval("dohm");
+                              onSeekApproval("doge");
                             }}
                           >
                             {txnButtonText(pendingTransactions, "approve_staking", t`Approve`)}
@@ -359,7 +381,7 @@ function Stake() {
                       <TabPanel value={view} index={1} className="stake-tab-panel">
                         {isAllowanceDataLoading ? (
                           <Skeleton />
-                        ) : address && hasAllowance("dohms") ? (
+                        ) : address && hasAllowance("doges") ? (
                           <Button
                             className="stake-button"
                             variant="contained"
@@ -369,7 +391,7 @@ function Stake() {
                               onChangeStake("unstake");
                             }}
                           >
-                            {txnButtonText(pendingTransactions, "unstaking", t`Unstake DOHM`)}
+                            {txnButtonText(pendingTransactions, "unstaking", t`Unstake DOGE`)}
                           </Button>
                         ) : (
                           <Button
@@ -378,7 +400,7 @@ function Stake() {
                             color="primary"
                             disabled={isPendingTxn(pendingTransactions, "approve_unstaking")}
                             onClick={() => {
-                              onSeekApproval("dohms");
+                              onSeekApproval("doges");
                             }}
                           >
                             {txnButtonText(pendingTransactions, "approve_unstaking", t`Approve`)}
@@ -394,7 +416,7 @@ function Stake() {
                         <Trans>Unstaked Balance</Trans>
                       </Typography>
                       <Typography variant="body1" id="user-balance">
-                        {isAppLoading ? <Skeleton width="80px" /> : <>{trim(dohmBalance, 4)} DOHM</>}
+                        {isAppLoading ? <Skeleton width="80px" /> : <>{trim(dogeBalance, 4)} DOGE</>}
                       </Typography>
                     </div>
 
@@ -403,7 +425,7 @@ function Stake() {
                         <Trans>Staked Balance</Trans>
                       </Typography>
                       <Typography variant="body1" id="user-staked-balance">
-                        {isAppLoading ? <Skeleton width="80px" /> : <>{trimmedBalance} DOHMs</>}
+                        {isAppLoading ? <Skeleton width="80px" /> : <>{trimmedBalance} DOGEs</>}
                       </Typography>
                     </div>
 
@@ -412,7 +434,7 @@ function Stake() {
                         <Trans>Single Staking</Trans>
                       </Typography>
                       <Typography variant="body2" color="textSecondary">
-                        {isAppLoading ? <Skeleton width="80px" /> : <>{trim(dohmsBalance, 4)} DOHMs</>}
+                        {isAppLoading ? <Skeleton width="80px" /> : <>{trim(dogesBalance, 4)} DOGEs</>}
                       </Typography>
                     </div>
 
@@ -421,7 +443,7 @@ function Stake() {
                         <Trans>Staked Balance in Fuse</Trans>
                       </Typography>
                       <Typography variant="body2" color="textSecondary">
-                        {isAppLoading ? <Skeleton width="80px" /> : <>{trim(fdohmsBalance, 4)} fDOHMs</>}
+                        {isAppLoading ? <Skeleton width="80px" /> : <>{trim(fdogesBalance, 4)} fDOGEs</>}
                       </Typography>
                     </div>
 
@@ -430,7 +452,7 @@ function Stake() {
                         <Trans>Wrapped Balance</Trans>
                       </Typography>
                       <Typography variant="body2" color="textSecondary">
-                        {isAppLoading ? <Skeleton width="80px" /> : <>{trim(wdohmsBalance, 4)} wDOHMs</>}
+                        {isAppLoading ? <Skeleton width="80px" /> : <>{trim(wdogesBalance, 4)} wDOGEs</>}
                       </Typography>
                     </div>
 
@@ -441,7 +463,7 @@ function Stake() {
                         <Trans>Next Reward Amount</Trans>
                       </Typography>
                       <Typography variant="body1">
-                        {isAppLoading ? <Skeleton width="80px" /> : <>{nextRewardValue} DOHMs</>}
+                        {isAppLoading ? <Skeleton width="80px" /> : <>{nextRewardValue} DOGEs</>}
                       </Typography>
                     </div>
 

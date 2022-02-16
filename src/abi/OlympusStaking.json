@@ -21,8 +21,8 @@
     },
     {
       "inputs": [
-        { "internalType": "address", "name": "dohmTokenAddress_", "type": "address" },
-        { "internalType": "address", "name": "DOHMs_", "type": "address" },
+        { "internalType": "address", "name": "dogeTokenAddress_", "type": "address" },
+        { "internalType": "address", "name": "DOGEs_", "type": "address" },
         { "internalType": "uint8", "name": "epochLengthInBlocks_", "type": "uint8" }
       ],
       "name": "initialize",
@@ -32,14 +32,14 @@
     },
     {
       "inputs": [],
-      "name": "dohm",
+      "name": "doge",
       "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
       "stateMutability": "view",
       "type": "function"
     },
     {
       "inputs": [],
-      "name": "dohmToDistributeNextEpoch",
+      "name": "dogeToDistributeNextEpoch",
       "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
       "stateMutability": "view",
       "type": "function"
@@ -54,7 +54,7 @@
     { "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
     {
       "inputs": [],
-      "name": "DOHMs",
+      "name": "DOGEs",
       "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
       "stateMutability": "view",
       "type": "function"
@@ -68,7 +68,7 @@
     },
     {
       "inputs": [{ "internalType": "uint256", "name": "amountToStake_", "type": "uint256" }],
-      "name": "stakeDOHM",
+      "name": "stakeDOGE",
       "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -81,7 +81,7 @@
         { "internalType": "bytes32", "name": "r_", "type": "bytes32" },
         { "internalType": "bytes32", "name": "s_", "type": "bytes32" }
       ],
-      "name": "stakeDOHMWithPermit",
+      "name": "stakeDOGEWithPermit",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -95,7 +95,7 @@
     },
     {
       "inputs": [{ "internalType": "uint256", "name": "amountToWithdraw_", "type": "uint256" }],
-      "name": "unstakeDOHM",
+      "name": "unstakeDOGE",
       "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -108,7 +108,7 @@
         { "internalType": "bytes32", "name": "r_", "type": "bytes32" },
         { "internalType": "bytes32", "name": "s_", "type": "bytes32" }
       ],
-      "name": "unstakeDOHMWithPermit",
+      "name": "unstakeDOGEWithPermit",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

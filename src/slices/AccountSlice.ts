@@ -1,9 +1,9 @@
 import { BigNumber, BigNumberish, ethers } from "ethers";
 import { addresses } from "../constants";
 import { abi as ierc20Abi } from "../abi/IERC20.json";
-import { abi as DOHMsv2 } from "../abi/Dohmsv2.json";
+import { abi as DOGEsv2 } from "../abi/Dogesv2.json";
 import { abi as fuseProxy } from "../abi/FuseProxy.json";
-// import { abi as wDOHMs } from "../abi/wDOHMs.json";
+// import { abi as wDOGEs } from "../abi/wDOGEs.json";
 
 import { setAll } from "../helpers";
 
@@ -13,11 +13,11 @@ import { IBaseAddressAsyncThunk, ICalcUserBondDetailsAsyncThunk } from "./interf
 
 interface IUserBalances {
   balances: {
-    dohm: string;
-    dohms: string;
-    // fdohms: string;
-    // wdohms: string;
-    // wdohmsAsDohms: string;
+    doge: string;
+    doges: string;
+    // fdoges: string;
+    // wdoges: string;
+    // wdogesAsDoges: string;
     // pool: string;
   };
 }
@@ -25,19 +25,19 @@ interface IUserBalances {
 export const getBalances = createAsyncThunk(
   "account/getBalances",
   async ({ address, networkID, provider }: IBaseAddressAsyncThunk) => {
-    const dohmContract = new ethers.Contract(addresses[networkID].DOHM_ADDRESS as string, ierc20Abi, provider);
-    const dohmBalance = await dohmContract.balanceOf(address);
-    const dohmsContract = new ethers.Contract(
-      addresses[networkID].DOHMS_ADDRESS as string,
+    const dogeContract = new ethers.Contract(addresses[networkID].DOGE_ADDRESS as string, ierc20Abi, provider);
+    const dogeBalance = await dogeContract.balanceOf(address);
+    const dogesContract = new ethers.Contract(
+      addresses[networkID].DOGEs_ADDRESS as string,
       ierc20Abi,
       provider,
     );
-    const dohmsBalance = await dohmsContract.balanceOf(address);
-    //const wdohmsContract = new ethers.Contract(addresses[networkID].WDOHMS_ADDRESS as string, wDOHMs, provider);
-    //const wdohmsBalance = await wdohmsContract.balanceOf(address);
-    // NOTE (appleseed): wdohmsAsDohms is wDOHMs given as a quantity of DOHMs
-    // const wdohmsAsDohms = await wdohmsContract.wDOHMToDOHMs(wdohmsBalance);
-    // const wdohmsAsDohms = BigNumber.from(0);
+    const dogesBalance = await dogesContract.balanceOf(address);
+    //const wdogesContract = new ethers.Contract(addresses[networkID].WDOGEs_ADDRESS as string, wDOGEs, provider);
+    //const wdogesBalance = await wdogesContract.balanceOf(address);
+    // NOTE (appleseed): wdogesAsDoges is wDOGEs given as a quantity of DOGEs
+    // const wdogesAsDoges = await wdogesContract.wDOGEToDOGEs(wdogesBalance);
+    // const wdogesAsDoges = BigNumber.from(0);
     // const poolTokenContract = new ethers.Contract(
     //   addresses[networkID].PT_TOKEN_ADDRESS as string,
     //   ierc20Abi,
@@ -46,27 +46,27 @@ export const getBalances = createAsyncThunk(
     // const poolBalance = await poolTokenContract.balanceOf(address);
     const poolBalance = BigNumber.from(0);
 
-    // let fdohmsBalance = BigNumber.from(0);
-    // for (const fuseAddressKey of ["FUSE_6_DOHMS", "FUSE_18_DOHMS", "FUSE_36_DOHMS"]) {
+    // let fdogesBalance = BigNumber.from(0);
+    // for (const fuseAddressKey of ["FUSE_6_DOGEs", "FUSE_18_DOGEs", "FUSE_36_DOGEs"]) {
     //   if (addresses[networkID][fuseAddressKey]) {
-    //     const fdohmsContract = new ethers.Contract(
+    //     const fdogesContract = new ethers.Contract(
     //       addresses[networkID][fuseAddressKey] as string,
     //       fuseProxy,
     //       provider.getSigner(),
     //     );
-    //     // fdohmsContract.signer;
-    //     const balanceOfUnderlying = await fdohmsContract.callStatic.balanceOfUnderlying(address);
-    //     fdohmsBalance = balanceOfUnderlying.add(fdohmsBalance);
+    //     // fdogesContract.signer;
+    //     const balanceOfUnderlying = await fdogesContract.callStatic.balanceOfUnderlying(address);
+    //     fdogesBalance = balanceOfUnderlying.add(fdogesBalance);
     //   }
     // }
 
     return {
       balances: {
-        dohm: ethers.utils.formatUnits(dohmBalance, "gwei"),
-        dohms: ethers.utils.formatUnits(dohmsBalance, "gwei"),
-        // fdohms: ethers.utils.formatUnits(fdohmsBalance, "gwei"),
-        //wdohms: ethers.utils.formatEther(wdohmsBalance),
-        // wdohmsAsDohms: ethers.utils.formatUnits(wdohmsAsDohms, "gwei"),
+        doge: ethers.utils.formatUnits(dogeBalance, "gwei"),
+        doges: ethers.utils.formatUnits(dogesBalance, "gwei"),
+        // fdoges: ethers.utils.formatUnits(fdogesBalance, "gwei"),
+        //wdoges: ethers.utils.formatEther(wdogesBalance),
+        // wdogesAsDoges: ethers.utils.formatUnits(wdogesAsDoges, "gwei"),
         // pool: ethers.utils.formatUnits(poolBalance, "gwei"),
       },
     };
@@ -75,43 +75,43 @@ export const getBalances = createAsyncThunk(
 
 interface IUserAccountDetails {
   staking: {
-    dohmStake: number;
-    dohmUnstake: number;
+    dogeStake: number;
+    dogeUnstake: number;
   };
   // wrapping: {
-  //   dohmsWrap: number;
-  //   wdohmsUnwrap: number;
+  //   dogesWrap: number;
+  //   wdogesUnwrap: number;
   // };
 }
 
 export const loadAccountDetails = createAsyncThunk(
   "account/loadAccountDetails",
   async ({ networkID, provider, address }: IBaseAddressAsyncThunk, { dispatch }) => {
-    const dohmContract = new ethers.Contract(addresses[networkID].DOHM_ADDRESS as string, ierc20Abi, provider);
+    const dogeContract = new ethers.Contract(addresses[networkID].DOGE_ADDRESS as string, ierc20Abi, provider);
     
-    const stakeAllowance = await dohmContract.allowance(address, addresses[networkID].STAKING_HELPER_ADDRESS);
+    const stakeAllowance = await dogeContract.allowance(address, addresses[networkID].STAKING_HELPER_ADDRESS);
     console.log("accountSlice", stakeAllowance);
-    const dohmsContract = new ethers.Contract(addresses[networkID].DOHMS_ADDRESS as string, DOHMsv2, provider);
-    const unstakeAllowance = await dohmsContract.allowance(address, addresses[networkID].STAKING_ADDRESS);
-    // const poolAllowance = await dohmsContract.allowance(address, addresses[networkID].PT_PRIZE_POOL_ADDRESS);
-    // const wrapAllowance = await dohmsContract.allowance(address, addresses[networkID].WDOHMS_ADDRESS);
+    const dogesContract = new ethers.Contract(addresses[networkID].DOGEs_ADDRESS as string, DOGEsv2, provider);
+    const unstakeAllowance = await dogesContract.allowance(address, addresses[networkID].STAKING_ADDRESS);
+    // const poolAllowance = await dogesContract.allowance(address, addresses[networkID].PT_PRIZE_POOL_ADDRESS);
+    // const wrapAllowance = await dogesContract.allowance(address, addresses[networkID].WDOGEs_ADDRESS);
 
-    //const wdohmsContract = new ethers.Contract(addresses[networkID].WDOHMS_ADDRESS as string, wDOHMs, provider);
-    //const unwrapAllowance = await wdohmsContract.allowance(address, addresses[networkID].WDOHMS_ADDRESS);
+    //const wdogesContract = new ethers.Contract(addresses[networkID].WDOGEs_ADDRESS as string, wDOGEs, provider);
+    //const unwrapAllowance = await wdogesContract.allowance(address, addresses[networkID].WDOGEs_ADDRESS);
 
     await dispatch(getBalances({ address, networkID, provider }));
 
     return {
       staking: {
-        dohmStake: +stakeAllowance,
-        dohmUnstake: +unstakeAllowance,
+        dogeStake: +stakeAllowance,
+        dogeUnstake: +unstakeAllowance,
       },
       // wrapping: {
-      //   dohmWrap: +wrapAllowance,
-      //   dohmUnwrap: +unwrapAllowance,
+      //   dogeWrap: +wrapAllowance,
+      //   dogeUnwrap: +unwrapAllowance,
       // },
       pooling: {
-        dohmsPool: 0,
+        dogesPool: 0,
       },
     };
   },
@@ -182,9 +182,9 @@ interface IAccountSlice extends IUserAccountDetails, IUserBalances {
 const initialState: IAccountSlice = {
   loading: false,
   bonds: {},
-  balances: { dohm: "", dohms: ""/*, wdohmsAsDohms: "", wdohms: "", fdohms: "", pool: ""*/ },
-  staking: { dohmStake: 0, dohmUnstake: 0 },
-  //wrapping: { dohmsWrap: 0, wdohmsUnwrap: 0 },
+  balances: { doge: "", doges: ""/*, wdogesAsDoges: "", wdoges: "", fdoges: "", pool: ""*/ },
+  staking: { dogeStake: 0, dogeUnstake: 0 },
+  //wrapping: { dogesWrap: 0, wdogesUnwrap: 0 },
 };
 
 const accountSlice = createSlice({

@@ -25,12 +25,12 @@ export const MarketCap = () => {
   );
 };
 
-export const DOHMPrice = () => {
+export const DOGEPrice = () => {
   const marketPrice = useSelector(state => state.app.marketPrice);
 
   return (
     <Metric className="price">
-      <Metric.Title>DOHM Price</Metric.Title>
+      <Metric.Title>DOGE Price</Metric.Title>
       <Metric.Value>{marketPrice && formatCurrency(marketPrice, 2)}</Metric.Value>
     </Metric>
   );
@@ -50,13 +50,13 @@ export const CircSupply = () => {
   );
 };
 
-export const BackingPerDOHM = () => {
-  const backingPerDohm = useSelector(state => state.app.treasuryMarketValue / state.app.circSupply);
+export const BackingPerDOGE = () => {
+  const backingPerDoge = useSelector(state => state.app.treasuryMarketValue / state.app.circSupply);
 
   return (
     <Metric className="bpo">
-      <Metric.Title>Backing per DOHM</Metric.Title>
-      <Metric.Value>{!isNaN(backingPerDohm) && formatCurrency(backingPerDohm, 2)}</Metric.Value>
+      <Metric.Title>Backing per DOGE</Metric.Title>
+      <Metric.Value>{!isNaN(backingPerDoge) && formatCurrency(backingPerDoge, 2)}</Metric.Value>
     </Metric>
   );
 };
@@ -68,27 +68,27 @@ export const CurrentIndex = () => {
     <Metric className="index">
       <Metric.Title>
         Current Index
-        <InfoTooltip message="The current index tracks the amount of DOHMs accumulated since the beginning of staking. Basically, how much DOHMs one would have if they staked and held a single DOHMs from day 1." />
+        <InfoTooltip message="The current index tracks the amount of DOGEs accumulated since the beginning of staking. Basically, how much DOGEs one would have if they staked and held a single DOGEs from day 1." />
       </Metric.Title>
-      <Metric.Value>{currentIndex && trim(currentIndex, 2) + " DOHMs"}</Metric.Value>
+      <Metric.Value>{currentIndex && trim(currentIndex, 2) + " DOGEs"}</Metric.Value>
     </Metric>
   );
 };
 
-export const WDOHMSPrice = () => {
-  const wDohmsPrice = useSelector(state => state.app.marketPrice * state.app.currentIndex);
+export const WDOGEsPrice = () => {
+  const wDogesPrice = useSelector(state => state.app.marketPrice * state.app.currentIndex);
 
   return (
     <Metric className="wsoprice">
       <Metric.Title>
-        wDOHMs Price
+        wDOGEs Price
         <InfoTooltip
           message={
-            "wDOHMs = DOHMs * index\n\nThe price of wDOHMs is equal to the price of DOHMs multiplied by the current index."
+            "wDOGEs = DOGEs * index\n\nThe price of wDOGEs is equal to the price of DOGEs multiplied by the current index."
           }
         />
       </Metric.Title>
-      <Metric.Value>{wDohmsPrice && formatCurrency(wDohmsPrice, 2)}</Metric.Value>
+      <Metric.Value>{wDogesPrice && formatCurrency(wDogesPrice, 2)}</Metric.Value>
     </Metric>
   );
 };

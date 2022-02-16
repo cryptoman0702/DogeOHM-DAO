@@ -63,7 +63,7 @@ function ClaimBonds({ activeBonds }) {
     <>
       {numberOfBonds > 0 && (
         <Zoom in={true}>
-          <Paper className="dohm-card claim-bonds-card">
+          <Paper className="doge-card claim-bonds-card">
             <CardHeader title="Your Bonds (1,1)" />
             <Box>
               {!isSmallScreen && (

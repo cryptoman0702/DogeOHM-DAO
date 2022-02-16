@@ -2,21 +2,20 @@ import { AppBar, Toolbar, Box, Button, SvgIcon } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { ReactComponent as MenuIcon } from "../../assets/icons/hamburger.svg";
-import DohmMenu from "./DohmMenu.jsx";
+import DOGEMenu from "./DogeMenu.jsx";
 import ConnectMenu from "./ConnectMenu.jsx";
 import "./topbar.scss";
+import { RunwayAvailableGraph } from "src/views/TreasuryDashboard/components/Graph/Graph";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
     [theme.breakpoints.up("sm")]: {
       width: "100%",
-      padding: "10px",
     },
     justifyContent: "flex-end",
     alignItems: "flex-end",
-    background: "transparent",
     backdropFilter: "none",
-    zIndex: 10,
+    background: "#FFFFFF00",
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -47,7 +46,7 @@ function TopBar({ theme, handleDrawerToggle }) {
         </Button>
 
         <Box display="flex">
-          {!isVerySmallScreen && <DohmMenu />}
+          {!isVerySmallScreen && <DOGEMenu />}
           <ConnectMenu theme={theme} />
         </Box>
       </Toolbar>

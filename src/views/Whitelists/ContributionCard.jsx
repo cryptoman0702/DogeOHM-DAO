@@ -77,12 +77,12 @@ function ContributionCard(props) {
   }, [timeRemaining, address]);
   useEffect(async () => {
     await getEligibility();
-    if (contract === 0 || contract === 1) setEligibility(store.getState().whitelist.eligibility);
+    if (contract === 0) setEligibility(store.getState().whitelist.mainEligibility);
+    else if (contract === 1) setEligibility(store.getState().whitelist.ogEligibility);
     else setEligibility(true);
-    console.log(eligibility);
   }, [eligibility]);
   return (
-    <Card className="dohm-card">
+    <Card className="doge-card">
       <Box display="flex">
         <CardHeader title="Contribute" />
       </Box>
@@ -168,8 +168,6 @@ function ContributionCard(props) {
                 approve();
               }}
             >
-            
-              {/* //1642690800  */}
               Approve
             </Button>
           )}

@@ -34,7 +34,7 @@ function ConnectMenu({ theme }) {
   }
 
   const open = Boolean(anchorEl);
-  const id = open ? "dohm-popper-pending" : undefined;
+  const id = open ? "doge-popper-pending" : undefined;
 
   const primaryColor = theme === "light" ? "#49A1F2" : "#F8CC82";
   const buttonStyles =
@@ -85,7 +85,7 @@ function ConnectMenu({ theme }) {
         {({ TransitionProps }) => {
           return (
             <Fade {...TransitionProps} timeout={100}>
-              <Paper className="dohm-menu" elevation={1}>
+              <Paper className="doge-menu" elevation={1}>
                 {pendingTransactions.map((x, i) => (
                   <Box key={i} fullWidth>
                     <Link key={x.txnHash} href={getEtherscanUrl(x.txnHash)} target="_blank" rel="noreferrer">
@@ -102,8 +102,8 @@ function ConnectMenu({ theme }) {
                   <Button
                     size="large"
                     variant="contained"
-                    color="secondary"
-                    onClick={disconnect}
+                    color="primary"
+                    onClick={clickFunc}
                     style={{ marginBottom: "0px" }}
                     fullWidth
                   >

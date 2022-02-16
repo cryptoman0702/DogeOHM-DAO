@@ -89,7 +89,7 @@ const commonSettings = {
     MuiPaper: {
       root: {
         backdropFilter: "blur(33px)",
-        "&.dohm-card": {
+        "&.doge-card": {
           padding: "20px 30px 30px 30px",
           borderRadius: "10px",
           maxWidth: "833px",
@@ -97,12 +97,12 @@ const commonSettings = {
           marginBottom: "1.8rem",
           overflow: "hidden",
         },
-        "&.dohm-menu": {
+        "&.doge-menu": {
           padding: "22px 0px",
           borderRadius: "10px",
           margin: "0px",
         },
-        "&.dohm-chart-card": {
+        "&.doge-chart-card": {
           padding: "20px 0px",
           whiteSpace: "nowrap",
           maxWidth: "700px",
@@ -268,7 +268,7 @@ const commonSettings = {
       underline: "none",
     },
     MuiSvgIcon: {
-      viewBox: "0 0 20 20",
+      viewBox: "0 0 25 25",
       fontSize: "small",
     },
     MuiBackdrop: {

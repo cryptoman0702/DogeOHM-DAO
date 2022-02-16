@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-artifact-1",
-  "contractName": "DOHMPreSale",
-  "sourceName": "contracts/sale/olympus/presale/DOHMPresale.sol",
+  "contractName": "DOGEPreSale",
+  "sourceName": "contracts/sale/olympus/presale/DOGEPresale.sol",
   "abi": [
     {
       "inputs": [
@@ -48,7 +48,7 @@
     },
     {
       "inputs": [],
-      "name": "aDOHM",
+      "name": "aDOGE",
       "outputs": [
         {
           "internalType": "address",
@@ -126,7 +126,7 @@
         },
         {
           "internalType": "address",
-          "name": "_aDOHM",
+          "name": "_aDOGE",
           "type": "address"
         },
         {
@@ -172,7 +172,7 @@
           "type": "uint256"
         }
       ],
-      "name": "purchaseaDOHM",
+      "name": "purchaseaDOGE",
       "outputs": [
         {
           "internalType": "bool",
@@ -220,11 +220,11 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_sendaDOHMTo",
+          "name": "_sendaDOGETo",
           "type": "address"
         }
       ],
-      "name": "sendRemainingaDOHM",
+      "name": "sendRemainingaDOGE",
       "outputs": [
         {
           "internalType": "bool",

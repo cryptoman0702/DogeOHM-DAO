@@ -12,6 +12,7 @@
   height: 100%;
   overflow: hidden;
   border-radius: 0 !important;
+  border-right: 1px solid #FFFFFF30;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -38,6 +39,7 @@
   .wallet-link {
     margin: 10px;
   }
+  z-index: 1101;
 }
 
 .dapp-menu-top {
@@ -53,20 +55,20 @@
 }
 
 .dapp-menu-bottom {
-  height: 40vh;
+  height: 45vh;
   min-height: 30vh;
 }
 
 .dapp-menu-links {
-  min-height: 35vh;
+  min-height: 25vh;
   display: flex;
   align-items: center;
 }
 .dapp-nav a {
-  margin-top: 0.7rem;
+  margin-top: 0.3rem;
   margin-left: 33px;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
   svg {
     width: 20px;
     height: 20px;

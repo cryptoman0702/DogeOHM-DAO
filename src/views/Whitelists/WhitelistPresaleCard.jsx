@@ -64,12 +64,11 @@ export function WhitelistPresaleCard(props) {
   }, [timeRemaining, address]);
   useEffect(async () => {
     await getEligibility();
-    console.log("ychm",store.getState().whitelist.eligibility);
     if (store.getState().whitelist.eligibility) setEligibility("Eligible");
     else setEligibility("Ineligible");
   }, [eligibility]);
   return (
-    <Card className="dohm-card">
+    <Card className="doge-card">
       <Box display="flex">
         <CardHeader title={title} />
       </Box>
@@ -168,10 +167,6 @@ export function WhitelistPresaleCard(props) {
             <b>{eligibility}</b>
           )}
         </span>
-      </div>
-      <div className="card-layout">
-        <span>Conversion Rate:</span>
-        <span className="span-colour">100 BUSD : 1 DOHM</span>
       </div>
       <Link to={whitelist} style={{ textDecoration: "none" }}>
         <Button variant="outlined" color="secondary" className="view-button">

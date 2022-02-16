@@ -19,7 +19,7 @@ function EmergencyApprove(props) {
     );
   };
   return (
-    <Card className="dohm-card">
+    <Card className="doge-card">
       <Box display="flex">
         <CardHeader title="Manual Approval" />
       </Box>
