@@ -13,7 +13,7 @@ export const checkContributionApproval = createAsyncThunk(
   async ({ provider, address, networkID }: IBaseAddressAsyncThunk, { dispatch }) => {
     providerCheck(dispatch, provider);
     const signer = provider.getSigner();
-    const ticketContract = new ethers.Contract(addresses[networkID].TICKET_ADDRESS as string, ierc20ABI, signer);
+    const ticketContract = new ethers.Contract(addresses[networkID].VP_ADDRESS as string, ierc20ABI, signer);
     const applicableAllowance = await ticketContract.allowance(address, addresses[networkID].LOTTERY_ADDRESS);
     const bigZero = BigNumber.from("0");
     return {
@@ -27,7 +27,7 @@ export const approveContribution = createAsyncThunk(
   async ({ provider, address, networkID }: IBaseAddressAsyncThunk, { dispatch }) => {
     providerCheck(dispatch, provider);
     const signer = provider.getSigner();
-    const ticketContract = new ethers.Contract(addresses[networkID].TICKET_ADDRESS as string, ierc20ABI, signer);
+    const ticketContract = new ethers.Contract(addresses[networkID].VP_ADDRESS as string, ierc20ABI, signer);
     let approveTx;
     try {
       approveTx = await ticketContract.approve(
@@ -61,6 +61,14 @@ export const contribute = createAsyncThunk(
     await lotteryContract.deposit(value);
   },
 );
+export const claim = createAsyncThunk(
+  "lottery/claim",
+  async ({ address, networkID, provider}: IValueAsyncThunk, { dispatch }) => {
+    providerCheck(dispatch, provider);
+    const lotteryContract = selectContract(networkID, provider);
+    await lotteryContract.claim();
+  },
+);
 
 export const getLotteryData = createAsyncThunk(
   "lottery/getLotteryData",
@@ -70,6 +78,7 @@ export const getLotteryData = createAsyncThunk(
     const allocationCap = (await lotteryContract.allocLimit()).toString();
     return {
       status: await lotteryContract.isOpen(),
+      isClaimable: await lotteryContract.isClaimable(),
       individualAllocation: allocationCap,
       amountRaised: (await lotteryContract.totalDeposit()).toString(),
       presaleOpen: (await lotteryContract.openingTime()).toString(),
@@ -105,6 +114,7 @@ export interface LotteryDetails {
   buyApproval: false,
   //claimOpen: await lotteryContract.claimOpen(),
   loading: boolean,
+  isClaimable: boolean,
 }
 
 const initialState: LotteryDetails = {
@@ -117,6 +127,7 @@ const initialState: LotteryDetails = {
   amountContributed: "0",
   buyApproval: false,
   loading: true,
+  isClaimable: false,
 };
 
 const lotterySlice = createSlice({

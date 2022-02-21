@@ -1,4 +1,4 @@
-export const THE_GRAPH_URL = "https://api.thegraph.com/subgraphs/name/cryptoman0702/vault-protocol";
+export const THE_GRAPH_URL = "https://api.thegraph.com/subgraphs/name/cryptoman0702/doge-protocol";
 export const EPOCH_INTERVAL = 9600; // ychm bsc net block 3s
 
 // NOTE could get this from an outside source since it changes slightly over time
@@ -37,8 +37,7 @@ export const addresses: IAddresses = {
     BUSD_ADDRESS: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56", // ychm this address is used for presale and to get the token price
     DOGE_ADDRESS: "0x29C7f3e5876E0de90D1736eD6aD761BD360135Ae",
     DOGEs_ADDRESS: "0x88757DA24c844E187d43B74120e04b6667e6615B",
-    LOTTERY_ADDRESS: "0xD5cC3e8BD71a209134B9770Ea49C75680433d36B",
-    TICKET_ADDRESS: "0x60d97Fa11775D54CBAed02B35A2EE7dc07f4E2A2",
+    LOTTERY_ADDRESS: "0x73A0d36B9ab7aF8194A112e2161D182767c34F42",
     STAKING_ADDRESS: "0x05D41f9844591d36085dF4B51E714F5042c73B25",
     STAKING_HELPER_ADDRESS: "0x3274cE71f04b730cE9e108B3e6648139F35b0C70",
     TREASURY_ADDRESS: "0x31d227aaFEA4CAB932c00BEf38Bb841250440e30",

@@ -41,15 +41,6 @@ function NavContent() {
     if ((currentPath.indexOf("bonds") >= 0 || currentPath.indexOf("choose_bond") >= 0) && page === "bonds") {
       return true;
     }
-    if (currentPath.indexOf("casino") >= 0 && page === "casino") {
-      return true;
-    }
-    if (currentPath.indexOf("NFTS") >= 0 && page === "NFTS") {
-      return true;
-    }
-    if (currentPath.indexOf("airdrop") >= 0 && page === "airdrop") {
-      return true;
-    }
     if (currentPath.indexOf("lotteries") >= 0 && page === "lotteries") {
       return true;
     }
@@ -158,7 +149,7 @@ function NavContent() {
                   ))}
                 </div>
               </div>
-              <Link
+              {/* <Link
                 component={NavLink}
                 id="dash-nav"
                 to="/casino"
@@ -185,7 +176,7 @@ function NavContent() {
                   <SvgIcon component={NFTSIcon} />
                   <Trans>NFTS (comming)</Trans>
                 </Typography>
-              </Link>
+              </Link> */}
               {/* <Link
                 component={NavLink}
                 id="dash-nav"

@@ -129,7 +129,7 @@
             {
                 "indexed": false,
                 "internalType": "address",
-                "name": "vault",
+                "name": "doge",
                 "type": "address"
             },
             {
@@ -154,7 +154,7 @@
             {
                 "indexed": false,
                 "internalType": "address",
-                "name": "vault",
+                "name": "doge",
                 "type": "address"
             },
             {
@@ -173,7 +173,7 @@
             {
                 "indexed": false,
                 "internalType": "address",
-                "name": "vault",
+                "name": "doge",
                 "type": "address"
             },
             {
@@ -196,7 +196,7 @@
                 "type": "address"
             }
         ],
-        "name": "VaultFactoryRegistered",
+        "name": "DogeFactoryRegistered",
         "type": "event"
     },
     {
@@ -209,7 +209,7 @@
                 "type": "address"
             }
         ],
-        "name": "VaultFactoryRemoved",
+        "name": "DogeFactoryRemoved",
         "type": "event"
     },
     {
@@ -666,7 +666,7 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "vault",
+                "name": "doge",
                 "type": "address"
             },
             {
@@ -716,11 +716,11 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "vault",
+                "name": "doge",
                 "type": "address"
             }
         ],
-        "name": "getCurrentVaultReward",
+        "name": "getCurrentDogeReward",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -735,11 +735,11 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "vault",
+                "name": "doge",
                 "type": "address"
             }
         ],
-        "name": "getCurrentVaultStakeUnits",
+        "name": "getCurrentDogeStakeUnits",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -754,7 +754,7 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "vault",
+                "name": "doge",
                 "type": "address"
             },
             {
@@ -821,7 +821,7 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "vault",
+                "name": "doge",
                 "type": "address"
             },
             {
@@ -830,7 +830,7 @@
                 "type": "uint256"
             }
         ],
-        "name": "getFutureVaultReward",
+        "name": "getFutureDogeReward",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -845,7 +845,7 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "vault",
+                "name": "doge",
                 "type": "address"
             },
             {
@@ -854,7 +854,7 @@
                 "type": "uint256"
             }
         ],
-        "name": "getFutureVaultStakeUnits",
+        "name": "getFutureDogeStakeUnits",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -895,11 +895,11 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "vault",
+                "name": "doge",
                 "type": "address"
             }
         ],
-        "name": "getVaultData",
+        "name": "getDogeData",
         "outputs": [
             {
                 "components": [
@@ -926,8 +926,8 @@
                         "type": "tuple[]"
                     }
                 ],
-                "internalType": "struct IAludel.VaultData",
-                "name": "vaultData",
+                "internalType": "struct IAludel.DogeData",
+                "name": "dogeData",
                 "type": "tuple"
             }
         ],
@@ -942,7 +942,7 @@
                 "type": "uint256"
             }
         ],
-        "name": "getVaultFactoryAtIndex",
+        "name": "getDogeFactoryAtIndex",
         "outputs": [
             {
                 "internalType": "address",
@@ -955,7 +955,7 @@
     },
     {
         "inputs": [],
-        "name": "getVaultFactorySetLength",
+        "name": "getDogeFactorySetLength",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -1032,7 +1032,7 @@
                 "type": "address"
             }
         ],
-        "name": "isValidVault",
+        "name": "isValidDoge",
         "outputs": [
             {
                 "internalType": "bool",
@@ -1084,7 +1084,7 @@
                 "type": "address"
             }
         ],
-        "name": "registerVaultFactory",
+        "name": "registerDogeFactory",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -1097,7 +1097,7 @@
                 "type": "address"
             }
         ],
-        "name": "removeVaultFactory",
+        "name": "removeDogeFactory",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -1136,7 +1136,7 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "vault",
+                "name": "doge",
                 "type": "address"
             },
             {
@@ -1172,7 +1172,7 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "vault",
+                "name": "doge",
                 "type": "address"
             },
             {

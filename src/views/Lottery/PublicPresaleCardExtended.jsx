@@ -14,6 +14,7 @@ import {  getLotteryData,
         } from "../../slices/LotterySlice";
 import store from "../../store";
 import { Skeleton } from "@material-ui/lab";
+import { claim } from "src/slices/WhitelistSlice";
 
 export function PublicPresaleCardExtended(props) {
   const { title } = props;
@@ -30,6 +31,7 @@ export function PublicPresaleCardExtended(props) {
   const [amountContributed, setAmountContributed] = useState(null);
   const [amount, setAmount] = useState(null);
   const [approvalStatus, setApprovalStatus] = useState(null);
+  const [isClaimable, setClaimable] = useState(null);
   const [maxBuy, setMaxBuy] = useState(null);
   const getData = async () => {
     await dispatch(getLotteryData({ address: address, networkID: chainID, provider: provider }));
@@ -37,6 +39,10 @@ export function PublicPresaleCardExtended(props) {
   const buy = async () =>
     await dispatch(
       contribute({ provider: provider, address: address, networkID: chainID, value: amount }),
+    );
+    const claim = async () =>
+    await dispatch(
+      claim({ provider: provider, address: address, networkID: chainID}),
     );
   const validateApproval = async () => {
     await dispatch(
@@ -50,12 +56,14 @@ export function PublicPresaleCardExtended(props) {
   };
   useEffect(async () => {
      if (address) {
-       await getData();
-       await validateApproval();
-       setStatus(store.getState().lottery.status);
-       setIndividualAllocation(store.getState().lottery.individualAllocation);
-       setFundsRaised(store.getState().lottery.amountRaised);
-       const startDate = new Date(0);
+      
+      await getData();
+      await validateApproval();
+      console.log(store.getState().lottery.status);
+      setStatus(store.getState().lottery.status);
+      setIndividualAllocation(store.getState().lottery.individualAllocation);
+      setFundsRaised(store.getState().lottery.amountRaised);
+      const startDate = new Date(0);
       startDate.setUTCSeconds(store.getState().lottery.presaleOpen);
       setStartDate(startDate);
       const endDate = new Date(0);
@@ -67,6 +75,8 @@ export function PublicPresaleCardExtended(props) {
 
       setMaxBuy(store.getState().lottery.remainingContribution);
       setApprovalStatus(store.getState().lottery.buyApproval);
+      setClaimable(store.getState().lottery.isClaimable);
+      
      }
     return () => {
       setStatus(null);
@@ -78,6 +88,7 @@ export function PublicPresaleCardExtended(props) {
       setAmountContributed(null);
       setMaxBuy(null);
       setApprovalStatus(null);
+      setClaimable(null);
     };
   }, [timeRemaining, address]);
   return (
@@ -149,7 +160,7 @@ export function PublicPresaleCardExtended(props) {
             {individualAllocation === null ? (
               <Skeleton variant="text" width={"100px"} />
             ) : (
-              <b>{(individualAllocation ).toString() + " Tickets"}</b>
+              <b>{(individualAllocation / 10 ** 9).toString() + " DOGE"}</b>
             )}
           </span>
         </div>
@@ -159,7 +170,7 @@ export function PublicPresaleCardExtended(props) {
             {contributionRemaining === null ? (
               <Skeleton variant="text" width={"100px"} />
             ) : (
-              <b>{(contributionRemaining ).toString() + " Tickets"}</b>
+              <b>{(contributionRemaining / 10 ** 9).toString() + " DOGE"}</b>
             )}
           </span>
         </div>
@@ -169,7 +180,7 @@ export function PublicPresaleCardExtended(props) {
             {amountContributed === null ? (
               <Skeleton variant="text" width={"100px"} />
             ) : (
-              <b>{(amountContributed).toString() + " Tickets"}</b>
+              <b>{(amountContributed / 10 ** 9).toString() + " DOGE"}</b>
             )}
           </span>
         </div>
@@ -179,7 +190,7 @@ export function PublicPresaleCardExtended(props) {
             {fundsRaised === null ? (
               <Skeleton variant="text" width={"100px"} />
             ) : (
-              <b>{(fundsRaised).toString() + " Tickets"}</b>
+              <b>{(fundsRaised / 10 ** 9).toString() + " DOGE"}</b>
             )}
           </span>
         </div>
@@ -190,17 +201,17 @@ export function PublicPresaleCardExtended(props) {
             <b>{fundsRaised == 0 || fundsRaised === null ? (<Skeleton variant="text" width={"100px"} />):((amountContributed * 100 / fundsRaised).toString() + "%")}</b>
           </span>
         </div>
-        <div className="card-layout">
+        {/* <div className="card-layout">
           <span>Prize in budget:</span>
           <span className="reward-colour">
-            <b>$100000</b>
+          <Skeleton variant="text" width={"100px"} />
           </span>
-        </div>
+        </div> */}
         { !status && 
           <div className="card-layout">
             <span>Winner Wallet:</span>
             <span className="reward-colour">
-              <b>$100000</b>
+            <Skeleton variant="text" width={"100px"} />
             </span>
           </div>
         }
@@ -288,6 +299,19 @@ export function PublicPresaleCardExtended(props) {
               Approve
             </Button>
           )}
+          {isClaimable ? (
+            <Button
+              className="presale-button"
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => {
+               claim();
+              }}
+            >
+              Claim
+            </Button>
+          ) : (<></>)}
         </div>
       </Box>
     </Card>

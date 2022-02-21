@@ -1,6 +1,6 @@
-# VAULT PROTOCOL DAO
+# DOGE OHM DAO
 
-VAULT PROTOCOL DAO is a decentralized protocol based on the DOGE token — collateralized and backed by the Vault Protocol DAO. Doge will be the reserve currency of BSC. 
+DOGE OHM DAO is a decentralized protocol based on the DOGE token — collateralized and backed by the DOGE OHM DAO. Doge will be the reserve currency of BSC. 
 
 ## Local Development
 

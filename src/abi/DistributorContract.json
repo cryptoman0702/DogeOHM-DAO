@@ -41,7 +41,7 @@
         { "internalType": "uint256", "name": "_nextEpochBlock", "type": "uint256" },
         { "internalType": "uint256", "name": "_blocksInEpoch", "type": "uint256" },
         { "internalType": "uint256", "name": "_rewardRate", "type": "uint256" },
-        { "internalType": "address", "name": "_vault", "type": "address" },
+        { "internalType": "address", "name": "_doge", "type": "address" },
         { "internalType": "address", "name": "_stakingContract", "type": "address" },
         { "internalType": "address", "name": "_DOGE", "type": "address" },
         { "internalType": "address", "name": "_DAI", "type": "address" }
@@ -123,7 +123,7 @@
     },
     {
       "inputs": [],
-      "name": "vault",
+      "name": "doge",
       "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
       "stateMutability": "view",
       "type": "function"

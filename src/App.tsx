@@ -180,7 +180,7 @@ function App() {
       setWalletChecked(true);
     }
     if (shouldTriggerSafetyCheck()) {
-      dispatch(info("Safety Check: Always verify you're on vaultprotocoldao.com!"));
+      dispatch(info("Safety Check: Always verify you're on dogeprotocoldao.com!"));
     }
   }, []);
 

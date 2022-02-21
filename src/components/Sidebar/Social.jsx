@@ -9,11 +9,11 @@ import { ReactComponent as Youtube } from "../../assets/icons/youtube.svg";
 export default function Social() {
   return (
     <div className="social-row">
-      <Link href="https://medium.com/@VaultProtocolDao" target="_blank">
+      <Link href="https://medium.com/@DogeProtocolDao" target="_blank">
         <SvgIcon component={Medium} />
       </Link>
 
-      <Link href="https://twitter.com/OfficialVaultProtocol" target="_blank">
+      <Link href="https://twitter.com/OfficialDogeProtocol" target="_blank">
         <SvgIcon component={Twitter} />
       </Link>
 
@@ -21,7 +21,7 @@ export default function Social() {
         <SvgIcon component={Discord} />
       </Link>
 
-      <Link href="https://t.me/VaultProtocolDao" target="_blank">
+      <Link href="https://t.me/DogeProtocolDao" target="_blank">
         <SvgIcon component={Telegram} />
       </Link>
     </div>

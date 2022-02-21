@@ -79,7 +79,7 @@ function ChooseBond() {
           </Box>
 
           <Grid container item xs={12} style={{ margin: "10px 0px 20px" }} className="bond-hero">
-            <Grid item xs={4}>
+            <Grid item xs={6}>
               <Box textAlign={`${isVerySmallScreen ? "left" : "center"}`}>
                 <Typography variant="h5" color="textSecondary">
                   <Trans>Treasury Balance</Trans>
@@ -101,7 +101,7 @@ function ChooseBond() {
               </Box>
             </Grid>
 
-            <Grid item xs={4} className={`doge-price`}>
+            <Grid item xs={6} className={`doge-price`}>
               <Box textAlign={`${isVerySmallScreen ? "right" : "center"}`}>
                 <Typography variant="h5" color="textSecondary">
                   <Trans>DOGE Price</Trans>
@@ -110,8 +110,8 @@ function ChooseBond() {
                   {isAppLoading ? <Skeleton width="100px" /> : formatCurrency(marketPrice, 2)}
                 </Typography>
               </Box>
-            </Grid>
-            <Grid item xs={4} className={`doge-price`}>
+             </Grid>
+            {/*<Grid item xs={4} className={`doge-price`}>
               <Box textAlign={`${isVerySmallScreen ? "right" : "center"}`}>
                 <Typography variant="h5" color="textSecondary">
                   <Trans>Ticket Price</Trans>
@@ -120,7 +120,7 @@ function ChooseBond() {
                   {isAppLoading ? <Skeleton width="100px" /> : (trim(ticketPrice,2) + " DOGE")}
                 </Typography>
               </Box>
-            </Grid>
+            </Grid> */}
           </Grid>
 
           {!isSmallScreen && (

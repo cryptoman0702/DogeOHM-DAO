@@ -5,11 +5,11 @@ import { SvgIcon } from "@material-ui/core";
 import { Trans } from "@lingui/macro";
 
 const externalUrls = [
-  // {
-  //   title: <Trans>Buy</Trans>,
-  //   url: `https://pancakeswap.finance/swap?inputCurrency=0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56&outputCurrency=0x0083a5a7e25e0Ee5b94685091eb8d0A32DfF11D4`,
-  //   icon: <SvgIcon color="primary" component={SpiritSwap} />,
-  // },
+  {
+    title: <Trans>Buy</Trans>,
+    url: `https://pancakeswap.finance/swap?inputCurrency=0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56&outputCurrency=0x0083a5a7e25e0Ee5b94685091eb8d0A32DfF11D4`,
+    icon: <SvgIcon color="primary" component={SpiritSwap} />,
+  },
   {
     title: <Trans>Governance</Trans>,
     url: "",
@@ -17,7 +17,7 @@ const externalUrls = [
   },
   {
     title: <Trans>Docs</Trans>,
-    url: "https://vaultprotocoldao.gitbook.io/vaultprotocol-dao/",
+    url: "https://dogeohmdao.gitbook.io/dogeohm-dao/",
     icon: <SvgIcon component={DocsIcon} />,
   },
 ];

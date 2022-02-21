@@ -88,109 +88,45 @@ function DogeMenu() {
   // const daiAddress = dai.getAddressForReserve(networkID);
   // const fraxAddress = frax.getAddressForReserve(networkID);
   return (
-    <Box
-      component="div"
-      onMouseEnter={e => handleClick(e)}
-      onMouseLeave={e => handleClick(e)}
-      id="doge-menu-button-hover"
-    >
-      <Button id="doge-menu-button" size="large" variant="contained" color="secondary" title="DOGE" aria-describedby={id}>
-        <SvgIcon component={InfoIcon} color="primary" />
-        <Typography>DOGE</Typography>
-      </Button>
+    // <Box
+    //   component="div"
+    //   onMouseEnter={e => handleClick(e)}
+    //   onMouseLeave={e => handleClick(e)}
+    //   id="doge-menu-button-hover"
+    // >
+    //   <Button id="doge-menu-button" size="large" variant="contained" color="secondary" title="DOGE" aria-describedby={id}>
+    //     <SvgIcon component={InfoIcon} color="primary" />
+    //     <Typography>DOGE</Typography>
+    //   </Button>
 
-      <Popper id={id} open={open} anchorEl={anchorEl} placement="bottom-start" transition>
-        {({ TransitionProps }) => {
-          return (
-            <Fade {...TransitionProps} timeout={100}>
-              <Paper className="doge-menu" elevation={1}>
-                <Box component="div" className="buy-tokens">
-                  <Link
-                    // href={`https://swap.spiritswap.finance/#/exchange/swap?inputCurrency=${fraxAddress}&outputCurrency=${DOGE_ADDRESS}`}
-                    href={`https://pancakeswap.finance/swap?inputCurrency=0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E&outputCurrency=0x0083a5a7e25e0Ee5b94685091eb8d0A32DfF11D4`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <Button size="large" variant="contained" color="secondary" fullWidth>
-                      <Typography align="left">
-                        <Trans>Buy on PancakeSwap</Trans>
-                        <SvgIcon component={ArrowUpIcon} htmlColor="#A3A3A3" />
-                      </Typography>
-                    </Button>
-                  </Link>
-                </Box>
-                {isEthereumAPIAvailable ? (
-                  <Box className="add-tokens">
-                    <Divider color="secondary" />
-                    <p>
-                      <Trans>TOKEN COMING SOON</Trans>
-                    </p>
-                    <Box display="flex" flexDirection="row" justifyContent="space-between">
-                      {/*DOGE_ADDRESS && (
-                        <Button
-                          variant="contained"
-                          color="secondary"
-                          onClick={addTokenToWallet("DOGE", DOGE_ADDRESS, address)}
-                        >
-                          {<SvgIcon
-                            component={dogeTokenImg}
-                            viewBox="0 0 32 32"
-                            style={{ height: "25px", width: "25px" }}
-                          />}
-                          <Typography variant="body1">DOGE</Typography>
-                        </Button>
-                      ) */}
-                      {/*DOGEs_ADDRESS && (
-                        <Button
-                          variant="contained"
-                          color="secondary"
-                          onClick={addTokenToWallet("DOGEs", DOGEs_ADDRESS, address)}
-                        >
-                          {<SvgIcon
-                            component={dogeTokenImg}
-                            viewBox="0 0 100 100"
-                            style={{ height: "25px", width: "25px" }}
-                          />}
-                          <Typography variant="body1">Doge</Typography>
-                        </Button>
-                      ) */}
-                      {/* {WDOGEs_ADDRESS && (
-                        <Button
-                          variant="contained"
-                          color="secondary"
-                          onClick={addTokenToWallet("wDOGEs", WDOGEs_ADDRESS, address)}
-                        >
-                          <SvgIcon
-                            component={wDogesTokenImg}
-                            viewBox="0 0 180 180"
-                            style={{ height: "25px", width: "25px" }}
-                          />
-                          <Typography variant="body1">wDOGEs</Typography>
-                        </Button>
-                      )} */}
-                      {/* {PT_TOKEN_ADDRESS && (
-                        <Button
-                          variant="contained"
-                          color="secondary"
-                          onClick={addTokenToWallet("33T", PT_TOKEN_ADDRESS, address)}
-                        >
-                          <SvgIcon
-                            component={t33TokenImg}
-                            viewBox="0 0 1000 1000"
-                            style={{ height: "25px", width: "25px" }}
-                          />
-                          <Typography variant="body1">33T</Typography>
-                        </Button>
-                      )} */}
-                    </Box>
-                  </Box>
-                ) : null}
-              </Paper>
-            </Fade>
-          );
-        }}
-      </Popper>
-    </Box>
+    //   <Popper id={id} open={open} anchorEl={anchorEl} placement="bottom-start" transition>
+    //     {({ TransitionProps }) => {
+    //       return (
+    //         <Fade {...TransitionProps} timeout={100}>
+    //           <Paper className="doge-menu" elevation={1}>
+    //             <Box component="div" className="buy-tokens">
+    //               <Link
+    //                 // href={`https://swap.spiritswap.finance/#/exchange/swap?inputCurrency=${fraxAddress}&outputCurrency=${DOGE_ADDRESS}`}
+    //                 href={`https://pancakeswap.finance/swap?inputCurrency=0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E&outputCurrency=0x0083a5a7e25e0Ee5b94685091eb8d0A32DfF11D4`}
+    //                 target="_blank"
+    //                 rel="noreferrer"
+    //               >
+    //                 <Button size="large" variant="contained" color="secondary" fullWidth>
+    //                   <Typography align="left">
+    //                     <Trans>Buy on PancakeSwap</Trans>
+    //                     <SvgIcon component={ArrowUpIcon} htmlColor="#A3A3A3" />
+    //                   </Typography>
+    //                 </Button>
+    //               </Link>
+    //             </Box>
+                
+    //           </Paper>
+    //         </Fade>
+    //       );
+    //     }}
+    //   </Popper>
+    // </Box>
+    <></>
   );
 }
 
